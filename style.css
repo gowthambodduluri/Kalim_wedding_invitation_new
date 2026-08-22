@@ -502,12 +502,21 @@ body.card-3d-experience {
   }
 }
 
-/* When viewport is narrower (< 980px), prioritize center main invitation on top */
+/* When viewport is narrower (< 980px), prioritize center main invitation on top & add comfortable mobile spacing */
 @media (max-width: 979px) {
+  .viewport-3d {
+    padding-top: calc(4.8rem + env(safe-area-inset-top));
+  }
+
+  .card-3d-wrapper.is-opened {
+    margin-top: 0.8rem;
+  }
+
   .card-3d-wrapper.is-opened .card-inner-booklet {
     max-width: 580px;
-    margin: 0.35rem auto 0;
+    margin: 0 auto;
   }
+
   .leaf-center {
     order: -1;
   }
