@@ -85,32 +85,52 @@ body.card-3d-experience {
 }
 
 /* ==========================================================================
-   ACT 0: INTERACTIVE ENVELOPE OVERLAY (RECREATED FROM REFERENCE OPENING)
+   ACT 0: INTERACTIVE ENVELOPE OVERLAY (HEMANTH & SUSHMITHA OPENING ENGINE)
    ========================================================================== */
 .envelope-overlay-backdrop {
   position: fixed;
   inset: 0;
   z-index: 200000;
-  background: rgba(5, 6, 10, 0.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: radial-gradient(circle at center, rgba(16, 20, 36, 0.98) 0%, rgba(5, 6, 10, 0.99) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
-  transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease;
+  perspective: 1200px;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.8s ease;
 }
 
 .envelope-overlay-backdrop.opened {
   opacity: 0;
   visibility: hidden;
-  transform: scale(1.05);
   pointer-events: none;
+}
+
+.envelope-overlay-backdrop.opened .envelope-modal-card {
+  animation: envelope-open 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes envelope-open {
+  0% {
+    opacity: 1;
+    transform: scale(1) rotateX(0deg);
+  }
+  45% {
+    opacity: 0.95;
+    transform: scale(1.04) rotateX(-16deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35) rotateX(-90deg) translateY(-40px);
+    filter: blur(8px);
+  }
 }
 
 .envelope-modal-card {
   position: relative;
-  width: min(94vw, 480px);
+  width: min(94vw, 460px);
   background: linear-gradient(145deg, #181d30 0%, #090b14 100%);
   border: 2px solid var(--gold-border);
   border-radius: clamp(22px, 4vw, 30px);
@@ -118,6 +138,8 @@ body.card-3d-experience {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 45px var(--gold-glow);
   text-align: center;
   overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
 .env-orb {
@@ -193,14 +215,15 @@ body.card-3d-experience {
   margin-top: 0.3rem;
 }
 
-/* Pulsing Wax Seal Open Button */
+/* Pulsing Wax Seal Open Button (recreated from reference seal-pulse) */
 .env-button-container {
   margin: clamp(0.8rem, 2vw, 1.2rem) auto;
 }
 
-@keyframes pulseGlow {
-  0%, 100% { transform: scale(1); opacity: 0.95; }
-  50% { transform: scale(1.06); opacity: 1; }
+@keyframes seal-pulse {
+  0%, 10% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  90%, 100% { transform: scale(1); }
 }
 
 .pulse-seal-button {
@@ -217,12 +240,12 @@ body.card-3d-experience {
   align-items: center;
   justify-content: center;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
-  animation: pulseGlow 2.5s infinite ease-in-out;
+  animation: seal-pulse 1.9s ease-in-out infinite;
   transition: transform 0.25s ease;
 }
 
 .pulse-seal-button:hover {
-  transform: scale(1.1);
+  transform: scale(1.16) rotate(3deg);
 }
 
 .pulse-seal-button:active {
@@ -244,10 +267,16 @@ body.card-3d-experience {
   text-align: center;
 }
 
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.55; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(2px); }
+}
+
 .env-click-hint {
   font-size: clamp(0.68rem, 1.5vw, 0.76rem);
-  color: var(--text-dim);
+  color: var(--gold-light);
   font-style: italic;
+  animation: hint-pulse 2.2s ease-in-out infinite;
 }
 
 /* ==========================================================================
