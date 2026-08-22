@@ -1,11 +1,11 @@
 /* ==========================================================================
-   FULL 3D VISUALIZATION WEDDING INVITATION ENGINE
-   Kaleem & Roshni
+   THE ROYAL 3D WEDDING INVITATION • INTERACTIVE & DYNAMIC ENGINE
+   Shaik Mannur Kaleem & Shaik Roshni
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   init3DCardInteraction();
-  init3DTiltPhysics();
+  initDynamicTiltPhysics();
   initCountdown();
   initAmbientCanvas();
   initSoundAtmosphere();
@@ -29,10 +29,10 @@ function init3DCardInteraction() {
     if (isCardOpened || !cardWrapper) return;
     isCardOpened = true;
 
-    // Trigger celebration confetti
+    // Trigger celebratory sparkles
     triggerCelebrationConfetti();
 
-    // Start background music
+    // Start background atmosphere
     startAtmosphereSound();
 
     // Open card with 3D flap physics
@@ -69,14 +69,15 @@ function init3DCardInteraction() {
 }
 
 /* ==========================================================================
-   2. 3D GYRO / MOUSE TILT PHYSICS
+   2. UNIVERSAL DYNAMIC TILT PHYSICS (MOUSE + GYROSCOPE + TOUCH)
    ========================================================================== */
-function init3DTiltPhysics() {
+function initDynamicTiltPhysics() {
   const viewport = document.getElementById('viewport-stage');
   const card = document.getElementById('main-3d-card');
 
   if (!viewport || !card) return;
 
+  // A. Desktop Mouse Movement
   viewport.addEventListener('mousemove', (e) => {
     const rect = viewport.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -85,8 +86,8 @@ function init3DTiltPhysics() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg
-    const rotateY = ((x - centerX) / centerX) * 6;
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
 
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   });
@@ -94,6 +95,65 @@ function init3DTiltPhysics() {
   viewport.addEventListener('mouseleave', () => {
     card.style.transform = 'rotateX(0deg) rotateY(0deg)';
   });
+
+  // B. Mobile Gyroscope / Device Orientation
+  if (window.DeviceOrientationEvent && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+    // iOS 13+ permission request on user interaction
+    document.body.addEventListener('click', () => {
+      DeviceOrientationEvent.requestPermission().then((state) => {
+        if (state === 'granted') {
+          bindGyroscope(card);
+        }
+      }).catch(() => {});
+    }, { once: true });
+  } else if (window.DeviceOrientationEvent) {
+    // Android & standard mobile browsers
+    bindGyroscope(card);
+  }
+
+  // C. Mobile Touch Dragging Tilt
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  viewport.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  viewport.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1 && !isCardOpened) {
+      const deltaX = e.touches[0].clientX - touchStartX;
+      const deltaY = e.touches[0].clientY - touchStartY;
+
+      const rotateY = Math.max(Math.min(deltaX * 0.08, 10), -10);
+      const rotateX = Math.max(Math.min(deltaY * -0.08, 10), -10);
+
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', () => {
+    if (!isCardOpened) {
+      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    }
+  }, { passive: true });
+}
+
+function bindGyroscope(card) {
+  window.addEventListener('deviceorientation', (e) => {
+    if (!card) return;
+    const gamma = e.gamma; // Left to right [-90, 90]
+    const beta = e.beta;   // Front to back [-180, 180]
+
+    if (gamma !== null && beta !== null) {
+      const rotateY = Math.max(Math.min(gamma * 0.25, 8), -8);
+      const rotateX = Math.max(Math.min((beta - 45) * 0.2, 8), -8);
+
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+  }, { passive: true });
 }
 
 /* ==========================================================================
