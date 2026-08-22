@@ -19,11 +19,11 @@
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
 
-  <!-- Google Fonts: Cormorant Garamond, Syne, Montserrat, Italiana -->
+  <!-- Google Fonts: Cormorant Garamond, Syne, Montserrat, Great Vibes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Italiana&family=Montserrat:wght@300;400;500;600;700;800&family=Syne:wght@500;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700;800&family=Syne:wght@500;700;800&display=swap"
     rel="stylesheet">
 
   <!-- FontAwesome -->
@@ -42,39 +42,68 @@
   <div class="interactive-glow" id="cursor-glow"></div>
 
   <!-- ==========================================================================
-       ACT 0: INTERACTIVE ENVELOPE OVERLAY (RECREATED FROM REFERENCE OPENING)
+       ACT 0: THE REALISTIC 3D ENVELOPE OPENING CEREMONY (FLAP + LETTER SLIDE-OUT)
        ========================================================================== -->
-  <div id="envelopeOverlay" class="envelope-overlay-backdrop">
-    <div class="envelope-modal-card">
-      <div class="env-orb env-orb-top"></div>
-      <div class="env-orb env-orb-bottom"></div>
+  <div id="envelopeOverlay" class="envelope-stage-container">
+    
+    <!-- Floating Petals & Ambient Sparkles -->
+    <div class="env-floating-decor decor-1">🌸</div>
+    <div class="env-floating-decor decor-2">✨</div>
+    <div class="env-floating-decor decor-3">🌿</div>
+    <div class="env-floating-decor decor-4">✦</div>
 
-      <!-- Filigree Corners -->
-      <div class="env-corner top-left"></div>
-      <div class="env-corner top-right"></div>
-      <div class="env-corner bottom-left"></div>
-      <div class="env-corner bottom-right"></div>
-
-      <div class="env-body-content">
-        <div class="env-floating-icon">✨</div>
-        <p class="env-kicker-text">YOU ARE CORDIALLY INVITED TO THE WEDDING OF</p>
-
-        <div class="env-names-box">
-          <h1 class="env-couple-heading">Kaleem <em>&</em> Roshni</h1>
-          <p class="env-date-sub">SEPTEMBER 26 & 27, 2026 • GUDUR, AP</p>
+    <div class="envelope-zoom-wrapper" id="envelopeZoomWrapper">
+      <div class="envelope-3d-assembly" id="openEnvelopeBtn" role="button" tabindex="0" title="Click to Open Invitation">
+        
+        <!-- 1. INNER LETTER CARD (SLIDES OUT OF POCKET) -->
+        <div class="envelope-letter-card" id="envelopeLetter">
+          <div class="letter-card-content">
+            <div class="letter-emblem">✦</div>
+            <span class="letter-kicker">WEDDING INVITATION</span>
+            <h2 class="letter-couple-name">Kaleem <em>&</em> Roshni</h2>
+            <div class="letter-divider"></div>
+            <p class="letter-date">26 & 27 SEPTEMBER 2026</p>
+            <p class="letter-venue">GUDUR, ANDHRA PRADESH</p>
+          </div>
         </div>
 
-        <!-- Pulsing Wax Seal Open Button -->
-        <div class="env-button-container">
-          <button id="openEnvelopeBtn" class="pulse-seal-button" title="Tap Seal to Open Invitation">
-            <span class="seal-icon">✦</span>
-            <span class="seal-text-action">Tap to<br>Open</span>
-          </button>
+        <!-- 2. ENVELOPE BASE BODY -->
+        <div class="envelope-body-base">
+          <div class="env-inner-lining"></div>
         </div>
 
-        <p class="env-click-hint">Click seal to open invitation</p>
+        <!-- 3. ENVELOPE FRONT POCKET -->
+        <div class="envelope-front-pocket">
+          <div class="pocket-fold-left"></div>
+          <div class="pocket-fold-right"></div>
+          <div class="pocket-fold-bottom"></div>
+        </div>
+
+        <!-- 4. ENVELOPE TOP FLAP (HINGES OPEN IN 3D) -->
+        <div class="envelope-top-flap" id="envelopeTopFlap">
+          <div class="flap-outer-face"></div>
+          <div class="flap-inner-lining"></div>
+        </div>
+
+        <!-- 5. GOLD WAX SEAL (PULSES & RELEASES) -->
+        <div class="envelope-wax-seal" id="envelopeWaxSeal">
+          <div class="seal-ring-pulse"></div>
+          <div class="seal-disc-stamp">
+            <span class="seal-monogram-text">K & R</span>
+            <span class="seal-sub-text">2026</span>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Caption Below Envelope -->
+      <div class="envelope-caption-box" id="envelopeCaption">
+        <h3 class="env-caption-title">Royal Wedding Invitation</h3>
+        <p class="env-caption-hint">✦ Tap the envelope to open your invitation ✦</p>
+      </div>
+
     </div>
+
   </div>
 
   <!-- ==========================================================================

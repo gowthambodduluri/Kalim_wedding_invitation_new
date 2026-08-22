@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   1. ACT 0: ENVELOPE OPENING CEREMONY (RECREATED FROM REFERENCE OPENING)
+   1. ACT 0: REALISTIC 3D ENVELOPE OPENING CEREMONY
    ========================================================================== */
 let isEnvelopeOpened = false;
 
@@ -27,17 +27,22 @@ function initEnvelopeOpeningCeremony() {
     if (isEnvelopeOpened || !overlay) return;
     isEnvelopeOpened = true;
 
-    // Trigger celebratory confetti shower
-    triggerCelebrationConfetti();
-    setTimeout(triggerCelebrationConfetti, 400);
-
-    // Play Royal Harp Chord progression
+    // 1. Play Royal Harp Chord progression
     playRoyalChimeSequence();
 
-    // Start ambient background music
+    // 2. Start ambient background music
     startAtmosphereSound();
 
-    // Smoothly unveil envelope overlay
+    // 3. Trigger celebratory confetti shower
+    setTimeout(() => {
+      triggerCelebrationConfetti();
+    }, 600);
+
+    // 4. Smoothly unveil envelope overlay with 4-stage physics:
+    // - Seal dissolves (0ms)
+    // - Flap rotates up (240ms)
+    // - Letter slides out (800ms)
+    // - Zoom & fade into card (1500ms - 2400ms)
     overlay.classList.add('opened');
 
     showToast('✨ Welcome to Kaleem & Roshni’s Wedding Invitation');
@@ -303,28 +308,28 @@ function triggerCelebrationConfetti() {
   if (typeof confetti !== 'function') return;
 
   confetti({
-    particleCount: 55,
-    spread: 70,
-    origin: { y: 0.65 },
+    particleCount: 60,
+    spread: 75,
+    origin: { y: 0.6 },
     colors: ['#fae084', '#d4af37', '#ffffff', '#ffd1dc', '#93c5fd']
   });
 
   setTimeout(() => {
     confetti({
-      particleCount: 35,
+      particleCount: 40,
       angle: 60,
-      spread: 55,
+      spread: 60,
       origin: { x: 0 },
       colors: ['#fae084', '#d4af37', '#ffffff']
     });
     confetti({
-      particleCount: 35,
+      particleCount: 40,
       angle: 120,
-      spread: 55,
+      spread: 60,
       origin: { x: 1 },
       colors: ['#fae084', '#d4af37', '#ffffff']
     });
-  }, 200);
+  }, 250);
 }
 
 /* ==========================================================================
