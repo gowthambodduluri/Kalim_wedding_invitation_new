@@ -242,7 +242,7 @@ body.card-3d-experience {
   margin-top: 0.2rem;
 }
 
-/* Interactive Envelope Assembly in 3D */
+/* Interactive Sealed Envelope Assembly in 3D */
 .envelope-3d-assembly {
   position: relative;
   width: min(90vw, clamp(290px, 80vw, 430px));
@@ -431,7 +431,7 @@ body.card-3d-experience {
   letter-spacing: 0.5px;
 }
 
-/* 3. Envelope Front Pocket (3D Triangular Folds with Gold Piping) */
+/* 3. Envelope Front Pocket (Underneath Bottom Fold with Gold Piping) */
 .envelope-front-pocket {
   position: absolute;
   inset: 0;
@@ -441,15 +441,11 @@ body.card-3d-experience {
 
 .pocket-fold-left {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  top: 0;
-  width: 52%;
+  inset: 0;
   background: linear-gradient(135deg, #1c223a 0%, #0d101c 100%);
-  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  clip-path: polygon(0 0, 0 100%, 50% 68%);
   border-left: 2px solid var(--gold-border);
-  border-bottom: 2px solid var(--gold-border);
-  border-radius: 0 0 0 14px;
+  border-radius: 14px 0 0 14px;
 }
 
 .fold-gold-piping.left-piping {
@@ -461,15 +457,11 @@ body.card-3d-experience {
 
 .pocket-fold-right {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  width: 52%;
+  inset: 0;
   background: linear-gradient(225deg, #1c223a 0%, #0d101c 100%);
-  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  clip-path: polygon(100% 0, 100% 100%, 50% 68%);
   border-right: 2px solid var(--gold-border);
-  border-bottom: 2px solid var(--gold-border);
-  border-radius: 0 0 14px 0;
+  border-radius: 0 14px 14px 0;
 }
 
 .fold-gold-piping.right-piping {
@@ -481,12 +473,10 @@ body.card-3d-experience {
 
 .pocket-fold-bottom {
   position: absolute;
-  inset-x: 0;
-  bottom: 0;
-  height: 62%;
+  inset: 0;
   background: linear-gradient(180deg, rgba(32, 39, 66, 0.98) 0%, rgba(12, 15, 26, 1) 100%);
-  clip-path: polygon(0 100%, 50% 8%, 100% 100%);
-  box-shadow: 0 -12px 28px rgba(0, 0, 0, 0.7);
+  clip-path: polygon(0 100%, 50% 68%, 100% 100%);
+  border-bottom: 2px solid var(--gold-border);
   border-radius: 0 0 14px 14px;
 }
 
@@ -508,13 +498,13 @@ body.card-3d-experience {
   text-shadow: 0 0 8px var(--gold-glow);
 }
 
-/* 4. Envelope Top Flap (3D Hinge Fold with Gold Piping & Crest) */
+/* 4. Envelope Top Flap (CLOSED: Folds DOWN over front with point meeting Wax Seal) */
 .envelope-top-flap {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 58%;
+  height: 68%;
   transform-origin: top center;
   transform-style: preserve-3d;
   transform: rotateX(0deg);
@@ -523,7 +513,7 @@ body.card-3d-experience {
 }
 
 .envelope-stage-container.opened .envelope-top-flap {
-  transform: rotateX(172deg);
+  transform: rotateX(175deg);
   z-index: 1;
 }
 
@@ -535,7 +525,7 @@ body.card-3d-experience {
   border-top: 2px solid var(--gold-border);
   border-radius: 14px 14px 0 0;
   backface-visibility: hidden;
-  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 14px 25px rgba(0, 0, 0, 0.9));
 }
 
 .flap-damask-pattern {
@@ -563,15 +553,15 @@ body.card-3d-experience {
 
 .flap-gold-crest {
   position: absolute;
-  top: 22%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-serif);
-  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   color: var(--gold-light);
-  opacity: 0.7;
+  opacity: 0.8;
   text-shadow: 0 0 10px var(--gold-glow);
 }
 
@@ -584,10 +574,10 @@ body.card-3d-experience {
   backface-visibility: hidden;
 }
 
-/* 5. CREATIVE 3D GOLD METALLIC WAX SEAL */
+/* 5. CREATIVE 3D GOLD METALLIC WAX SEAL (STAMPED OVER FLAP TIP) */
 .envelope-wax-seal {
   position: absolute;
-  top: 48%;
+  top: 64%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 6;
