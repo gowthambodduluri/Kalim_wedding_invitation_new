@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Wedding of Kaleem & Roshni • 3D Invitation</title>
+  <meta name="description"
+    content="Open the 3D wedding invitation of Shaik Mannur Kaleem & Shaik Roshni • September 26 & 27, 2026 in Gudur, AP.">
+
+  <!-- OpenGraph Metadata for WhatsApp Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="💌 Wedding Invitation • Kaleem & Roshni">
+  <meta property="og:description"
+    content="Tap to open the 3D wedding invitation for Shaik Mannur Kaleem & Shaik Roshni on September 26 & 27, 2026!">
+  <meta property="og:image" content="assets/couple.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+
+  <!-- Google Fonts: Cormorant Garamond, Syne, Montserrat, Italiana -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Italiana&family=Montserrat:wght@300;400;500;600;700;800&family=Syne:wght@500;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="card-3d-experience">
+
+  <!-- Floating Golden Dust & Sparkles Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="interactive-glow" id="cursor-glow"></div>
+
+  <!-- FLOATING HUD CONTROLS -->
+  <nav class="hud-controls-bar">
+    <div class="hud-brand">
+      <span class="hud-monogram">K & R</span>
+      <span class="hud-year">2026</span>
+    </div>
+
+    <div class="hud-actions">
+      <!-- Re-Fold / Open Toggle Button -->
+      <button id="toggle-card-btn" class="hud-btn" title="Open / Close 3D Card">
+        <i class="fa-solid fa-envelope"></i>
+        <span id="card-state-text">Open Card</span>
+      </button>
+
+      <!-- Music Toggle -->
+      <button id="sound-btn" class="hud-btn" title="Toggle Atmosphere Music">
+        <div class="music-bars">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <span class="hud-sound-status">Music</span>
+      </button>
+
+      <!-- WhatsApp Share -->
+      <button id="share-btn" class="hud-btn gold-highlight" title="Share with Friends">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>Share</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       3D INVITATION VIEWPORT & STAGE
+       ========================================================================== -->
+  <div class="viewport-3d" id="viewport-stage">
+
+    <div class="card-3d-wrapper" id="main-3d-card">
+
+      <!-- ====================================================================
+           1. 3D CLOSED FRONT COVER (WITH GOLD WAX SEAL & DUAL FLAPS)
+           ==================================================================== -->
+      <div class="card-cover-container" id="card-cover-flaps">
+
+        <!-- Left Flap -->
+        <div class="cover-flap flap-left">
+          <div class="flap-emboss-pattern"></div>
+          <div class="flap-corner-filigree top-left"></div>
+          <div class="flap-corner-filigree bottom-left"></div>
+          <div class="flap-spine-line"></div>
+        </div>
+
+        <!-- Right Flap -->
+        <div class="cover-flap flap-right">
+          <div class="flap-emboss-pattern"></div>
+          <div class="flap-corner-filigree top-right"></div>
+          <div class="flap-corner-filigree bottom-right"></div>
+          <div class="flap-spine-line"></div>
+        </div>
+
+        <!-- Center Ribbon & Wax Seal Over Flaps -->
+        <div class="cover-center-badge" id="open-seal-trigger">
+          <div class="gold-ribbon-horizontal"></div>
+
+          <div class="wax-seal-3d-emblem">
+            <div class="seal-glow-ring"></div>
+            <div class="seal-dashed-orbit"></div>
+            <div class="seal-core-button">
+              <span class="seal-monogram">K & R</span>
+              <span class="seal-date">2026</span>
+            </div>
+          </div>
+
+          <div class="cover-typography">
+            <span class="cover-kicker">WEDDING INVITATION</span>
+            <h1 class="cover-names">Kaleem <em>&</em> Roshni</h1>
+            <p class="cover-date-place">SEPTEMBER 26 & 27, 2026 • GUDUR, AP</p>
+          </div>
+
+          <div class="open-instruction-pill">
+            <i class="fa-solid fa-sparkles"></i>
+            <span>TAP WAX SEAL TO OPEN INVITATION</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           2. 3D INNER INVITATION BOOKLET (UNFOLDED IN FULL 3D)
+           ==================================================================== -->
+      <div class="card-inner-booklet" id="card-inner-suite">
+
+        <!-- LEAF 1: COUPLE PHOTO & STORY -->
+        <div class="booklet-leaf leaf-left">
+          <div class="leaf-glass-pane">
+            <div class="leaf-corner top-left"></div>
+            <div class="leaf-corner top-right"></div>
+
+            <span class="leaf-tag">THE COUPLE</span>
+
+            <!-- Couple Portrait with Gold Rim & HD View -->
+            <div class="couple-portrait-box" id="open-photo-lightbox" role="button" tabindex="0"
+              title="Click to view Full HD Photo">
+              <img src="assets/couple.jpg" alt="Shaik Mannur Kaleem & Shaik Roshni" class="portrait-img"
+                id="main-portrait-img">
+              <div class="hd-zoom-pill">
+                <i class="fa-solid fa-expand"></i> Tap for Full HD
+              </div>
+              <div class="portrait-overlay">
+                <span class="p-names">Kaleem & Roshni</span>
+                <span class="p-sub">United in Love & Friendship</span>
+              </div>
+            </div>
+
+            <!-- Profiles -->
+            <div class="profiles-compact-stack">
+              <div class="profile-mini-card">
+                <div class="role-row">
+                  <span class="role-badge">THE GROOM</span>
+                  <span class="edu-pill">M.Tech., Structural Engineer</span>
+                </div>
+                <h4 class="name-bold">Shaik Mannur Kaleem</h4>
+                <p class="work-mini"><strong>Co-Founder: Dream House Constructions & Interiors</strong> (Nellore • Gudur
+                  • Naidupeta)</p>
+                <p class="lineage-mini">Son of Mr. Shaik Mannur Ibrahim & Mrs. Shaik Meherunisa Begam</p>
+              </div>
+
+              <div class="profile-mini-card bride-mini">
+                <div class="role-row">
+                  <span class="role-badge bride-badge">THE BRIDE</span>
+                  <span class="edu-pill bride-edu">B.Sc., D.El.Ed.</span>
+                </div>
+                <h4 class="name-bold">Shaik Roshni</h4>
+                <p class="work-mini"><strong>Dedicated Educator</strong> • Inspiring Knowledge & Grace</p>
+                <p class="lineage-mini">Daughter of Shaik Gulam Gouse & Mrs. Shaik Safoora</p>
+              </div>
+            </div>
+
+            <div class="leaf-corner bottom-left"></div>
+            <div class="leaf-corner bottom-right"></div>
+          </div>
+        </div>
+
+        <!-- LEAF 2: MAIN FORMAL INVITATION & LIVE COUNTDOWN (CENTER) -->
+        <div class="booklet-leaf leaf-center">
+          <div class="leaf-glass-pane">
+            <div class="leaf-corner top-left"></div>
+            <div class="leaf-corner top-right"></div>
+
+            <span class="leaf-tag">CELEBRATION INVITATION</span>
+            <div class="leaf-emblem">✦</div>
+
+            <h2 class="romantic-verse">
+              "Two lives, two hearts, joined together in friendship, united forever in love."
+            </h2>
+
+            <div class="grand-names-display">
+              <span class="title-role">THE WEDDING OF</span>
+              <h1 class="grand-groom">SHAIK MANNUR KALEEM</h1>
+              <div class="name-separator">
+                <span class="sep-line"></span>
+                <span class="sep-amp">&</span>
+                <span class="sep-line"></span>
+              </div>
+              <h1 class="grand-bride">SHAIK ROSHNI</h1>
+            </div>
+
+            <div class="family-solicitation-block">
+              <h3 class="hosts-name">Mr. Shaik Mannur Ibrahim & Mrs. Shaik Meherunisa Begam</h3>
+              <p class="hosts-request">cordially request your gracious presence and blessings to celebrate the
+                auspicious marriage of their son</p>
+            </div>
+
+            <!-- Precision Countdown HUD -->
+            <div class="countdown-hud-box">
+              <div class="countdown-caption">
+                <i class="fa-regular fa-clock"></i> COUNTDOWN TO THE WEDDING CEREMONY
+              </div>
+              <div class="countdown-display">
+                <div class="cd-item"><span id="days" class="val">00</span><span class="lbl">DAYS</span></div>
+                <span class="cd-dot">:</span>
+                <div class="cd-item"><span id="hours" class="val">00</span><span class="lbl">HOURS</span></div>
+                <span class="cd-dot">:</span>
+                <div class="cd-item"><span id="minutes" class="val">00</span><span class="lbl">MINS</span></div>
+                <span class="cd-dot">:</span>
+                <div class="cd-item"><span id="seconds" class="val">00</span><span class="lbl">SECS</span></div>
+              </div>
+              <div class="countdown-date-line">
+                <i class="fa-regular fa-calendar-check"></i> Sunday, 27th September 2026 • 11:30 AM IST
+              </div>
+            </div>
+
+            <div class="leaf-corner bottom-left"></div>
+            <div class="leaf-corner bottom-right"></div>
+          </div>
+        </div>
+
+        <!-- LEAF 3: EVENTS, VENUE PASS & RSVP (RIGHT) -->
+        <div class="booklet-leaf leaf-right">
+          <div class="leaf-glass-pane">
+            <div class="leaf-corner top-left"></div>
+            <div class="leaf-corner top-right"></div>
+
+            <span class="leaf-tag">EVENTS & VENUE PASS</span>
+
+            <!-- Event 1: Haldi & Dinner -->
+            <div class="event-card-leaf">
+              <div class="ev-date-ribbon">
+                <span class="ribbon-d">26</span>
+                <span class="ribbon-m">SEP</span>
+              </div>
+              <div class="ev-details">
+                <span class="ev-badge haldi-badge">DAY 01 • EVENING</span>
+                <h4 class="ev-title">Haldi Ceremony & Dinner</h4>
+                <p class="ev-time"><i class="fa-regular fa-clock"></i> Saturday, 26th Sept • 8:30 P.M.</p>
+                <p class="ev-venue"><i class="fa-solid fa-location-dot"></i> PVR Function Hall, Gudur</p>
+                <button class="btn-cal-mini" onclick="addToGoogleCalendar('haldi')">
+                  <i class="fa-regular fa-calendar-plus"></i> Add to Calendar
+                </button>
+              </div>
+            </div>
+
+            <!-- Event 2: Wedding & Lunch -->
+            <div class="event-card-leaf wedding-highlight">
+              <div class="ev-date-ribbon gold-ribbon">
+                <span class="ribbon-d">27</span>
+                <span class="ribbon-m">SEP</span>
+              </div>
+              <div class="ev-details">
+                <span class="ev-badge wedding-badge">DAY 02 • MAIN EVENT</span>
+                <h4 class="ev-title">Wedding Ceremony & Grand Lunch</h4>
+                <p class="ev-time"><i class="fa-regular fa-clock"></i> Sunday, 27th Sept • 11:30 A.M. (Lunch 12:30 P.M.)
+                </p>
+                <p class="ev-venue"><i class="fa-solid fa-location-dot"></i> PVR Function Hall, Gudur</p>
+                <button class="btn-cal-mini gold" onclick="addToGoogleCalendar('wedding')">
+                  <i class="fa-regular fa-calendar-plus"></i> Add to Calendar
+                </button>
+              </div>
+            </div>
+
+            <!-- Venue Guide -->
+            <div class="venue-pass-card">
+              <div class="v-header">
+                <i class="fa-solid fa-location-dot v-icon"></i>
+                <div>
+                  <h4 class="v-name">PVR Function Hall</h4>
+                  <p class="v-address">Near RTC Bus Stand, New Balaji Nagar, East Gudur Rural, AP – 524101</p>
+                </div>
+              </div>
+
+              <div class="v-actions-row">
+                <a href="https://www.google.com/maps/search/?api=1&query=PVR+Function+Hall+Gudur+Andhra+Pradesh"
+                  target="_blank" rel="noopener noreferrer" class="btn-v-action primary">
+                  <i class="fa-solid fa-diamond-turn-right"></i> Open Navigation
+                </a>
+                <button class="btn-v-action secondary" id="copy-address-btn">
+                  <i class="fa-regular fa-copy"></i> Copy Address
+                </button>
+              </div>
+            </div>
+
+            <!-- RSVP Contacts & Best Compliments -->
+            <div class="rsvp-contacts-card">
+              <span class="rsvp-tag">DIRECT RSVP & BLESSINGS</span>
+
+              <div class="rsvp-btn-duo">
+                <div class="rsvp-item">
+                  <div class="r-info">
+                    <strong>Rahul</strong>
+                    <span>+91 90143 60108</span>
+                  </div>
+                  <div class="r-actions">
+                    <a href="tel:9014360108" class="r-icon-btn" title="Call"><i class="fa-solid fa-phone"></i></a>
+                    <a href="https://wa.me/919014360108?text=Heartiest%20congratulations%20on%20Kaleem%20%26%20Roshni's%20wedding!"
+                      target="_blank" rel="noopener noreferrer" class="r-icon-btn wa" title="WhatsApp"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+                  </div>
+                </div>
+
+                <div class="rsvp-item">
+                  <div class="r-info">
+                    <strong>Hamad</strong>
+                    <span>+91 83413 82089</span>
+                  </div>
+                  <div class="r-actions">
+                    <a href="tel:8341382089" class="r-icon-btn" title="Call"><i class="fa-solid fa-phone"></i></a>
+                    <a href="https://wa.me/918341382089?text=Heartiest%20congratulations%20on%20Kaleem%20%26%20Roshni's%20wedding!"
+                      target="_blank" rel="noopener noreferrer" class="r-icon-btn wa" title="WhatsApp"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="compliments-mini">
+                <span class="comp-label">BEST COMPLIMENTS FROM:</span>
+                <p>Mr. & Mrs. Rahul • Mr. & Mrs. Hamad • Mr. & Mrs. Azeez</p>
+              </div>
+            </div>
+
+            <div class="leaf-corner bottom-left"></div>
+            <div class="leaf-corner bottom-right"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FULL HD PHOTO LIGHTBOX MODAL -->
+  <div id="photo-lightbox" class="custom-modal photo-modal" aria-hidden="true" role="dialog">
+    <div class="modal-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content-box">
+      <button class="lightbox-close-btn" id="close-lightbox-btn" aria-label="Close HD Photo">&times;</button>
+      <img src="assets/couple.jpg" alt="Kaleem & Roshni Full HD" class="lightbox-full-img">
+      <div class="lightbox-caption">
+        <h3>Shaik Mannur Kaleem & Shaik Roshni</h3>
+        <p>September 26 & 27, 2026 • Gudur, Andhra Pradesh</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
