@@ -1101,6 +1101,8 @@ body.card-3d-experience {
   margin-top: 0.3rem;
   border-top: 1px dashed rgba(255, 255, 255, 0.08);
   padding-top: 0.3rem;
+  text-wrap: balance;
+  line-height: 1.35;
 }
 
 /* LEAF 2: MAIN INVITATION (CENTER) */
@@ -1181,14 +1183,17 @@ body.card-3d-experience {
 
 .hosts-name {
   font-family: var(--font-serif);
-  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  font-size: clamp(0.95rem, 2.1vw, 1.15rem);
   color: #fff;
+  line-height: 1.35;
+  text-wrap: balance;
 }
 
 .hosts-request {
   font-size: clamp(0.7rem, 1.4vw, 0.75rem);
   color: var(--text-muted);
-  margin-top: 0.1rem;
+  margin-top: 0.15rem;
+  text-wrap: balance;
 }
 
 /* Countdown HUD Box */
