@@ -1,8 +1,6 @@
 /* ==========================================================================
-   THE ROYAL 3D WEDDING INVITATION • PURE FLUID SCALING ENGINE
+   THE ROYAL 3D WEDDING INVITATION • INVITATION SUITE
    Shaik Mannur Kaleem & Shaik Roshni
-   100% Resolution Agnostic • Continuous Pixel-Adaptive Clamping • Zero Fixed Device Locks
-   Palette: Royal Midnight Obsidian, Velvet Slate, Champagne Gold Foil, Pearl White
    ========================================================================== */
 
 :root {
@@ -30,10 +28,8 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --ease-3d-open: cubic-bezier(0.25, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-3d-open: cubic-bezier(0.25, 1, 0.35, 1);
   --transition-fast: all 0.25s ease;
-  --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Base Reset */
@@ -66,7 +62,7 @@ body.card-3d-experience {
   min-height: 100dvh;
 }
 
-/* Ambient Canvas */
+/* Ambient Canvas & Glow */
 #ambient-canvas {
   position: fixed;
   inset: 0;
@@ -89,7 +85,173 @@ body.card-3d-experience {
 }
 
 /* ==========================================================================
-   1. FLUID TOP HUD BAR (ADAPTS CONTINUOUSLY TO ANY PX WIDTH)
+   ACT 0: INTERACTIVE ENVELOPE OVERLAY (RECREATED FROM REFERENCE OPENING)
+   ========================================================================== */
+.envelope-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200000;
+  background: rgba(5, 6, 10, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease;
+}
+
+.envelope-overlay-backdrop.opened {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.envelope-modal-card {
+  position: relative;
+  width: min(94vw, 480px);
+  background: linear-gradient(145deg, #181d30 0%, #090b14 100%);
+  border: 2px solid var(--gold-border);
+  border-radius: clamp(22px, 4vw, 30px);
+  padding: clamp(1.8rem, 4.5vw, 2.8rem) clamp(1.2rem, 3.5vw, 2rem);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 45px var(--gold-glow);
+  text-align: center;
+  overflow: hidden;
+}
+
+.env-orb {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid rgba(250, 224, 132, 0.12);
+  pointer-events: none;
+}
+
+.env-orb-top { top: -40px; left: -40px; }
+.env-orb-bottom { bottom: -40px; right: -40px; }
+
+.env-corner {
+  position: absolute;
+  width: clamp(20px, 4vw, 26px);
+  height: clamp(20px, 4vw, 26px);
+  border-color: var(--gold-light);
+  opacity: 0.6;
+}
+
+.env-corner.top-left { top: 14px; left: 14px; border-top: 2px solid; border-left: 2px solid; }
+.env-corner.top-right { top: 14px; right: 14px; border-top: 2px solid; border-right: 2px solid; }
+.env-corner.bottom-left { bottom: 14px; left: 14px; border-bottom: 2px solid; border-left: 2px solid; }
+.env-corner.bottom-right { bottom: 14px; right: 14px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.env-floating-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.2rem;
+  animation: float-icon 4s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(4deg); }
+}
+
+.env-kicker-text {
+  font-family: var(--font-display);
+  font-size: clamp(0.62rem, 1.4vw, 0.72rem);
+  letter-spacing: clamp(2px, 0.8vw, 3.5px);
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.env-names-box {
+  background: rgba(8, 10, 18, 0.75);
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: 18px;
+  padding: clamp(0.9rem, 2.5vw, 1.4rem) 1rem;
+  margin: clamp(0.8rem, 2vw, 1.2rem) 0;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.env-couple-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 6vw, 2.8rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+}
+
+.env-couple-heading em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.env-date-sub {
+  font-size: clamp(0.68rem, 1.6vw, 0.78rem);
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+/* Pulsing Wax Seal Open Button */
+.env-button-container {
+  margin: clamp(0.8rem, 2vw, 1.2rem) auto;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.pulse-seal-button {
+  position: relative;
+  width: clamp(86px, 18vw, 98px);
+  height: clamp(86px, 18vw, 98px);
+  border-radius: 50%;
+  border: 3px solid var(--gold-light);
+  background: linear-gradient(135deg, #fae084 0%, #d4af37 50%, #7a5409 100%);
+  color: #06070a;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
+  animation: pulseGlow 2.5s infinite ease-in-out;
+  transition: transform 0.25s ease;
+}
+
+.pulse-seal-button:hover {
+  transform: scale(1.1);
+}
+
+.pulse-seal-button:active {
+  transform: scale(0.95);
+}
+
+.seal-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.seal-text-action {
+  font-size: clamp(0.55rem, 1.2vw, 0.62rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.env-click-hint {
+  font-size: clamp(0.68rem, 1.5vw, 0.76rem);
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   TOP STICKY NAVIGATION HUD
    ========================================================================== */
 .hud-controls-bar {
   position: fixed;
@@ -128,17 +290,8 @@ body.card-3d-experience {
   line-height: 1;
 }
 
-.hud-dot {
-  color: var(--gold-primary);
-  font-size: clamp(0.55rem, 1.5vw, 0.75rem);
-}
-
-.hud-year {
-  font-family: var(--font-display);
-  font-size: clamp(0.6rem, 1.5vw, 0.7rem);
-  letter-spacing: 1px;
-  color: var(--text-muted);
-}
+.hud-dot { color: var(--gold-primary); font-size: clamp(0.55rem, 1.5vw, 0.75rem); }
+.hud-year { font-family: var(--font-display); font-size: clamp(0.6rem, 1.5vw, 0.7rem); letter-spacing: 1px; color: var(--text-muted); }
 
 .hud-actions {
   display: flex;
@@ -177,11 +330,6 @@ body.card-3d-experience {
   color: #050609;
   border: none;
   font-weight: 700;
-}
-
-.hud-btn.gold-highlight:hover, .hud-btn.gold-highlight:active {
-  box-shadow: 0 4px 15px var(--gold-glow);
-  transform: translateY(-1px);
 }
 
 .music-bars {
@@ -235,296 +383,38 @@ body.card-3d-experience {
 }
 
 /* ==========================================================================
-   3. 3D CLOSED FRONT COVER & FLAPS (PIXEL FLUID)
-   ========================================================================== */
-.card-cover-container {
-  position: relative;
-  width: min(94vw, 620px);
-  height: clamp(450px, 66dvh, 560px);
-  margin: 0 auto;
-  transform-style: preserve-3d;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-  z-index: 20;
-}
-
-/* Flaps */
-.cover-flap {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.5%;
-  background: linear-gradient(145deg, #161a29 0%, #090b14 100%);
-  border: 1px solid var(--gold-border);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.6);
-  transform-style: preserve-3d;
-  transition: transform 1.2s var(--ease-3d-open), box-shadow 1.2s ease;
-  overflow: hidden;
-}
-
-.flap-left {
-  left: 0;
-  transform-origin: left center;
-  border-radius: 20px 0 0 20px;
-  border-right: 1px solid rgba(0, 0, 0, 0.6);
-}
-
-.flap-right {
-  right: 0;
-  transform-origin: right center;
-  border-radius: 0 20px 20px 0;
-  border-left: 1px solid rgba(0, 0, 0, 0.6);
-}
-
-.flap-emboss-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px);
-  background-size: 16px 16px;
-  opacity: 0.7;
-}
-
-.flap-corner-filigree {
-  position: absolute;
-  width: clamp(20px, 4vw, 28px);
-  height: clamp(20px, 4vw, 28px);
-  border-color: var(--gold-light);
-  opacity: 0.5;
-}
-
-.flap-corner-filigree.top-left { top: 15px; left: 15px; border-top: 2px solid; border-left: 2px solid; }
-.flap-corner-filigree.bottom-left { bottom: 15px; left: 15px; border-bottom: 2px solid; border-left: 2px solid; }
-.flap-corner-filigree.top-right { top: 15px; right: 15px; border-top: 2px solid; border-right: 2px solid; }
-.flap-corner-filigree.bottom-right { bottom: 15px; right: 15px; border-bottom: 2px solid; border-right: 2px solid; }
-
-.flap-spine-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.4), transparent);
-}
-
-.flap-left .flap-spine-line { left: 8px; }
-.flap-right .flap-spine-line { right: 8px; }
-
-/* Center Wax Seal Badge Over Flaps */
-.cover-center-badge {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) translateZ(40px);
-  width: min(92%, 540px);
-  text-align: center;
-  z-index: 30;
-  cursor: pointer;
-  background: rgba(14, 16, 26, 0.85);
-  border: 1px solid var(--gold-border-subtle);
-  border-radius: 20px;
-  padding: clamp(0.9rem, 3vw, 1.5rem) clamp(0.6rem, 2vw, 1.2rem);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.wax-seal-3d-emblem {
-  position: relative;
-  width: clamp(78px, 18vw, 110px);
-  height: clamp(78px, 18vw, 110px);
-  margin: 0 auto clamp(0.5rem, 1.8vw, 1.2rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.seal-glow-ring {
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(250, 224, 132, 0.4) 0%, transparent 70%);
-  animation: pulse-glow 3s infinite ease-in-out;
-}
-
-@keyframes pulse-glow {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.15); opacity: 0.9; }
-}
-
-.seal-dashed-orbit {
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  border: 1px dashed var(--gold-light);
-  animation: rotate-orbit 20s linear infinite;
-}
-
-@keyframes rotate-orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.seal-core-button {
-  width: clamp(64px, 15vw, 84px);
-  height: clamp(64px, 15vw, 84px);
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff2b8 0%, #d4af37 45%, #7a5409 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
-  transition: transform 0.3s var(--ease-spring);
-}
-
-.cover-center-badge:hover .seal-core-button, .cover-center-badge:active .seal-core-button {
-  transform: scale(1.08) rotate(4deg);
-}
-
-.seal-monogram {
-  font-family: var(--font-serif);
-  font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-  font-weight: 800;
-  color: #171104;
-  letter-spacing: 1px;
-}
-
-.seal-date {
-  font-size: clamp(0.55rem, 1.2vw, 0.65rem);
-  font-weight: 800;
-  color: #171104;
-  letter-spacing: 1px;
-}
-
-.cover-typography .cover-kicker {
-  font-family: var(--font-display);
-  font-size: clamp(0.62rem, 1.5vw, 0.75rem);
-  letter-spacing: clamp(2px, 0.8vw, 4px);
-  color: var(--gold-light);
-  font-weight: 700;
-  display: block;
-}
-
-.cover-names {
-  font-family: var(--font-serif);
-  font-size: clamp(1.85rem, 5.5vw, 3rem);
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.15;
-  margin: 0.15rem 0;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-}
-
-.cover-names em {
-  font-style: italic;
-  color: var(--gold-light);
-}
-
-.cover-date-place {
-  font-size: clamp(0.68rem, 1.8vw, 0.85rem);
-  letter-spacing: 1px;
-  color: var(--text-muted);
-  margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
-  white-space: nowrap;
-}
-
-.open-instruction-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: clamp(0.55rem, 1.5vw, 0.75rem) clamp(0.85rem, 2.5vw, 1.6rem);
-  border-radius: 40px;
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%);
-  color: #06070a;
-  font-size: clamp(0.68rem, 1.8vw, 0.85rem);
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-  transition: transform 0.3s ease;
-  white-space: nowrap;
-}
-
-.cover-center-badge:hover .open-instruction-pill, .cover-center-badge:active .open-instruction-pill {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px var(--gold-glow);
-}
-
-/* 3D OPENED STATE FOR FLAPS */
-.card-3d-wrapper.is-opened .flap-left {
-  transform: rotateY(-175deg);
-  box-shadow: 15px 20px 40px rgba(0, 0, 0, 0.7);
-}
-
-.card-3d-wrapper.is-opened .flap-right {
-  transform: rotateY(175deg);
-  box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.7);
-}
-
-.card-3d-wrapper.is-opened .cover-center-badge {
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -50%) translateZ(0) scale(0.8);
-}
-
-.card-3d-wrapper.is-opened .card-cover-container {
-  pointer-events: none;
-  visibility: hidden;
-  height: 0;
-  margin: 0;
-  opacity: 0;
-  transition: opacity 0.6s 0.8s ease, visibility 0.6s 0.8s ease, height 0.6s 0.8s ease;
-}
-
-/* ==========================================================================
-   4. 3D INNER INVITATION BOOKLET (CONTINUOUS DYNAMIC GRID)
+   3. 3D INNER INVITATION BOOKLET (3 LEAVES)
    ========================================================================== */
 .card-inner-booklet {
-  display: none;
-  opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  transition: opacity 0.8s var(--ease-3d-open), transform 0.8s var(--ease-3d-open);
-}
-
-.card-3d-wrapper.is-opened .card-inner-booklet {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   align-items: stretch;
   gap: clamp(0.85rem, 2vw, 1.3rem);
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  animation: inner-unfold 0.8s 0.4s var(--ease-3d-open) forwards;
   width: 100%;
+  transform-style: preserve-3d;
 }
 
 /* When viewport is wide enough (≥ 980px), lock into perfect 3-column tri-fold */
 @media (min-width: 980px) {
-  .card-3d-wrapper.is-opened .card-inner-booklet {
+  .card-inner-booklet {
     grid-template-columns: 1fr 1.25fr 1fr;
   }
 }
 
-/* When viewport is narrower (< 980px), prioritize center main invitation on top & add comfortable mobile spacing */
+/* When viewport is narrower (< 980px), prioritize vertical order */
 @media (max-width: 979px) {
   .viewport-3d {
     padding-top: calc(4.8rem + env(safe-area-inset-top));
   }
 
-  .card-3d-wrapper.is-opened {
-    margin-top: 0.8rem;
-  }
-
-  .card-3d-wrapper.is-opened .card-inner-booklet {
+  .card-inner-booklet {
     max-width: 580px;
-    margin: 0 auto;
+    margin: 0.8rem auto 0;
   }
 
   .leaf-center {
     order: -1;
   }
-}
-
-@keyframes inner-unfold {
-  from { opacity: 0; transform: translateY(30px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .booklet-leaf {
@@ -534,6 +424,9 @@ body.card-3d-experience {
   width: 100%;
 }
 
+/* ==========================================================================
+   4. INNER LEAFLET GLASS PANES (CONTENT & STYLING)
+   ========================================================================== */
 .leaf-glass-pane {
   background: var(--bg-glass);
   border: 1px solid var(--gold-border);
@@ -544,6 +437,7 @@ body.card-3d-experience {
   -webkit-backdrop-filter: blur(20px);
   position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: clamp(0.6rem, 1.5vw, 0.9rem);
@@ -1138,7 +1032,7 @@ body.card-3d-experience {
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }

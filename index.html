@@ -4,15 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>The Wedding of Kaleem & Roshni • 3D Invitation</title>
+  <title>The Wedding of Kaleem & Roshni • Royal Invitation</title>
   <meta name="description"
-    content="Open the 3D wedding invitation of Shaik Mannur Kaleem & Shaik Roshni • September 26 & 27, 2026 in Gudur, AP.">
+    content="Experience the royal wedding invitation of Shaik Mannur Kaleem & Shaik Roshni • September 26 & 27, 2026 in Gudur, AP.">
 
   <!-- OpenGraph Metadata for WhatsApp Sharing -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="💌 Wedding Invitation • Kaleem & Roshni">
   <meta property="og:description"
-    content="Tap to open the 3D wedding invitation for Shaik Mannur Kaleem & Shaik Roshni on September 26 & 27, 2026!">
+    content="Tap to open the royal wedding invitation for Shaik Mannur Kaleem & Shaik Roshni on September 26 & 27, 2026!">
   <meta property="og:image" content="assets/couple.jpg">
 
   <!-- Favicon -->
@@ -41,7 +41,45 @@
   <canvas id="ambient-canvas"></canvas>
   <div class="interactive-glow" id="cursor-glow"></div>
 
-  <!-- FLOATING HUD CONTROLS -->
+  <!-- ==========================================================================
+       ACT 0: INTERACTIVE ENVELOPE OVERLAY (RECREATED FROM REFERENCE OPENING)
+       ========================================================================== -->
+  <div id="envelopeOverlay" class="envelope-overlay-backdrop">
+    <div class="envelope-modal-card">
+      <div class="env-orb env-orb-top"></div>
+      <div class="env-orb env-orb-bottom"></div>
+
+      <!-- Filigree Corners -->
+      <div class="env-corner top-left"></div>
+      <div class="env-corner top-right"></div>
+      <div class="env-corner bottom-left"></div>
+      <div class="env-corner bottom-right"></div>
+
+      <div class="env-body-content">
+        <div class="env-floating-icon">✨</div>
+        <p class="env-kicker-text">YOU ARE CORDIALLY INVITED TO THE WEDDING OF</p>
+
+        <div class="env-names-box">
+          <h1 class="env-couple-heading">Kaleem <em>&</em> Roshni</h1>
+          <p class="env-date-sub">SEPTEMBER 26 & 27, 2026 • GUDUR, AP</p>
+        </div>
+
+        <!-- Pulsing Wax Seal Open Button -->
+        <div class="env-button-container">
+          <button id="openEnvelopeBtn" class="pulse-seal-button" title="Tap Seal to Open Invitation">
+            <span class="seal-icon">✦</span>
+            <span class="seal-text-action">Tap to<br>Open</span>
+          </button>
+        </div>
+
+        <p class="env-click-hint">Click seal to open invitation</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       TOP STICKY NAVIGATION HUD
+       ========================================================================== -->
   <nav class="hud-controls-bar">
     <div class="hud-brand">
       <span class="hud-monogram">K & R</span>
@@ -50,10 +88,10 @@
     </div>
 
     <div class="hud-actions">
-      <!-- Re-Fold / Open Toggle Button -->
-      <button id="toggle-card-btn" class="hud-btn" title="Open / Close 3D Card">
-        <i class="fa-solid fa-envelope"></i>
-        <span id="card-state-text">Open Card</span>
+      <!-- Re-Open Envelope Button -->
+      <button id="reopenEnvelopeBtn" class="hud-btn" title="View Envelope">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        <span>Envelope</span>
       </button>
 
       <!-- Music Toggle -->
@@ -73,66 +111,16 @@
   </nav>
 
   <!-- ==========================================================================
-       3D INVITATION VIEWPORT & STAGE
+       MAIN TRI-FOLD INVITATION VIEWPORT & STAGE
        ========================================================================== -->
   <div class="viewport-3d" id="viewport-stage">
 
     <div class="card-3d-wrapper" id="main-3d-card">
 
-      <!-- ====================================================================
-           1. 3D CLOSED FRONT COVER (WITH GOLD WAX SEAL & DUAL FLAPS)
-           ==================================================================== -->
-      <div class="card-cover-container" id="card-cover-flaps">
-
-        <!-- Left Flap -->
-        <div class="cover-flap flap-left">
-          <div class="flap-emboss-pattern"></div>
-          <div class="flap-corner-filigree top-left"></div>
-          <div class="flap-corner-filigree bottom-left"></div>
-          <div class="flap-spine-line"></div>
-        </div>
-
-        <!-- Right Flap -->
-        <div class="cover-flap flap-right">
-          <div class="flap-emboss-pattern"></div>
-          <div class="flap-corner-filigree top-right"></div>
-          <div class="flap-corner-filigree bottom-right"></div>
-          <div class="flap-spine-line"></div>
-        </div>
-
-        <!-- Center Ribbon & Wax Seal Over Flaps -->
-        <div class="cover-center-badge" id="open-seal-trigger">
-
-          <div class="wax-seal-3d-emblem">
-            <div class="seal-glow-ring"></div>
-            <div class="seal-dashed-orbit"></div>
-            <div class="seal-core-button">
-              <span class="seal-monogram">K & R</span>
-              <span class="seal-date">2026</span>
-            </div>
-          </div>
-
-          <div class="cover-typography">
-            <span class="cover-kicker">WEDDING INVITATION</span>
-            <h1 class="cover-names">Kaleem <em>&</em> Roshni</h1>
-            <p class="cover-date-place">SEPTEMBER 26 & 27, 2026 • GUDUR, AP</p>
-          </div>
-
-          <div class="open-instruction-pill">
-            <i class="fa-solid fa-sparkles"></i>
-            <span>TAP WAX SEAL TO OPEN INVITATION</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ====================================================================
-           2. 3D INNER INVITATION BOOKLET (UNFOLDED IN FULL 3D)
-           ==================================================================== -->
+      <!-- 3D INNER INVITATION BOOKLET (3 LEAVES) -->
       <div class="card-inner-booklet" id="card-inner-suite">
 
-        <!-- LEAF 1: COUPLE PHOTO & STORY -->
+        <!-- LEAF 1: COUPLE PHOTO & STORY (LEFT) -->
         <div class="booklet-leaf leaf-left">
           <div class="leaf-glass-pane">
             <div class="leaf-corner top-left"></div>
@@ -183,7 +171,7 @@
           </div>
         </div>
 
-        <!-- LEAF 2: MAIN FORMAL INVITATION & LIVE COUNTDOWN (CENTER) -->
+        <!-- LEAF 2: MAIN INVITATION & LIVE COUNTDOWN (CENTER) -->
         <div class="booklet-leaf leaf-center">
           <div class="leaf-glass-pane">
             <div class="leaf-corner top-left"></div>
