@@ -315,19 +315,6 @@ body.card-3d-experience {
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.gold-ribbon-horizontal {
-  position: absolute;
-  top: 50%;
-  left: -20px;
-  right: -20px;
-  height: 55px;
-  transform: translateY(-50%);
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.25) 30%, rgba(250, 224, 132, 0.4) 50%, rgba(212, 175, 55, 0.25) 70%, transparent 100%);
-  border-top: 1px dashed var(--gold-border);
-  border-bottom: 1px dashed var(--gold-border);
-  pointer-events: none;
-}
-
 .wax-seal-3d-emblem {
   position: relative;
   width: 110px;
