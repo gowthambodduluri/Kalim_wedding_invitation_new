@@ -42,10 +42,15 @@
   <div class="interactive-glow" id="cursor-glow"></div>
 
   <!-- ==========================================================================
-       ACT 0: CREATIVE 3D ROYAL WAX SEAL ENVELOPE CEREMONY
+       ACT 0: CREATIVE 3D ROYAL WAX SEAL ENVELOPE CEREMONY (RICH ROYAL EMBOSS)
        ========================================================================== -->
   <div id="envelopeOverlay" class="envelope-stage-container">
     
+    <!-- Glowing Background Bokeh & Stardust Orbs -->
+    <div class="env-bg-bokeh bokeh-1"></div>
+    <div class="env-bg-bokeh bokeh-2"></div>
+    <div class="env-bg-bokeh bokeh-3"></div>
+
     <!-- Floating Ambient Stardust & Botanical Petals -->
     <div class="env-floating-decor decor-1" aria-hidden="true">🌸</div>
     <div class="env-floating-decor decor-2" aria-hidden="true">✨</div>
@@ -55,7 +60,15 @@
 
     <div class="envelope-zoom-wrapper" id="envelopeZoomWrapper">
       
-      <!-- Interactive Envelope Assembly -->
+      <!-- Top Royal Header Announcement -->
+      <div class="envelope-top-announcement" id="envelopeAnnouncement">
+        <div class="royal-crest-mini">✦ ﷽ ✦</div>
+        <p class="royal-invitation-kicker">YOU ARE CORDIALLY INVITED TO THE WEDDING OF</p>
+        <h1 class="royal-names-heading">Kaleem <em>&</em> Roshni</h1>
+        <p class="royal-dates-badge">26 & 27 SEPTEMBER 2026 • GUDUR, AP</p>
+      </div>
+
+      <!-- Interactive 3D Gold-Embossed Envelope Assembly -->
       <div class="envelope-3d-assembly" id="openEnvelopeBtn" role="button" tabindex="0" title="Tap Wax Seal to Open Invitation" aria-label="Open wedding invitation">
         
         <!-- Ambient Golden Aura behind Envelope -->
@@ -68,7 +81,7 @@
             <div class="letter-filigree-corner top-right"></div>
             
             <div class="letter-emblem">✦</div>
-            <span class="letter-kicker">YOU ARE INVITED</span>
+            <span class="letter-kicker">WEDDING CELEBRATION</span>
             <h2 class="letter-couple-name">Kaleem <em>&</em> Roshni</h2>
             <div class="letter-divider">
               <span class="d-line"></span>
@@ -76,33 +89,45 @@
               <span class="d-line"></span>
             </div>
             <p class="letter-date">26 & 27 SEPTEMBER 2026</p>
-            <p class="letter-venue">GUDUR • ANDHRA PRADESH</p>
+            <p class="letter-venue">PVR FUNCTION HALL • GUDUR</p>
 
             <div class="letter-filigree-corner bottom-left"></div>
             <div class="letter-filigree-corner bottom-right"></div>
           </div>
         </div>
 
-        <!-- 2. ENVELOPE BASE BODY -->
+        <!-- 2. ENVELOPE BASE BODY (WITH GOLD FOIL EMBOSS PATTERN) -->
         <div class="envelope-body-base">
+          <div class="env-damask-pattern"></div>
           <div class="env-inner-lining"></div>
+          <div class="env-gold-frame-border"></div>
           <div class="env-corner-filigree top-left"></div>
           <div class="env-corner-filigree top-right"></div>
           <div class="env-corner-filigree bottom-left"></div>
           <div class="env-corner-filigree bottom-right"></div>
         </div>
 
-        <!-- 3. ENVELOPE FRONT POCKET (3D Triangular Folds) -->
+        <!-- 3. ENVELOPE FRONT POCKET (3D Triangular Folds with Gold Piping) -->
         <div class="envelope-front-pocket">
-          <div class="pocket-fold-left"></div>
-          <div class="pocket-fold-right"></div>
-          <div class="pocket-fold-bottom"></div>
+          <div class="pocket-fold-left">
+            <div class="fold-gold-piping left-piping"></div>
+          </div>
+          <div class="pocket-fold-right">
+            <div class="fold-gold-piping right-piping"></div>
+          </div>
+          <div class="pocket-fold-bottom">
+            <div class="fold-gold-piping bottom-piping"></div>
+            <div class="pocket-gold-filigree-center">✦</div>
+          </div>
         </div>
 
-        <!-- 4. ENVELOPE TOP FLAP (3D HINGE ROTATION) -->
+        <!-- 4. ENVELOPE TOP FLAP (3D HINGE ROTATION WITH GOLD PIPING) -->
         <div class="envelope-top-flap" id="envelopeTopFlap">
           <div class="flap-outer-face">
+            <div class="flap-damask-pattern"></div>
+            <div class="flap-gold-edge-piping"></div>
             <div class="flap-crease-highlight"></div>
+            <div class="flap-gold-crest">K & R</div>
           </div>
           <div class="flap-inner-lining"></div>
         </div>
@@ -124,12 +149,13 @@
 
       </div>
 
-      <!-- Envelope Caption with Soft Shimmer -->
+      <!-- Action Button Hint Below Envelope -->
       <div class="envelope-caption-box" id="envelopeCaption">
-        <h3 class="env-caption-title">Shaik Mannur Kaleem <em>&</em> Shaik Roshni</h3>
-        <p class="env-caption-hint">
-          <span class="hint-sparkle">✨</span> Tap the golden wax seal to open <span class="hint-sparkle">✨</span>
-        </p>
+        <div class="open-seal-pill-btn">
+          <span class="pill-sparkle">✨</span>
+          <span class="pill-action-text">Tap Wax Seal to Open Invitation</span>
+          <span class="pill-sparkle">✨</span>
+        </div>
       </div>
 
     </div>
