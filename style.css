@@ -107,23 +107,30 @@ body.card-3d-experience {
 }
 
 .hud-brand {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
 }
 
 .hud-monogram {
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: var(--gold-light);
   line-height: 1;
 }
 
+.hud-dot {
+  color: var(--gold-primary);
+  font-size: 0.75rem;
+}
+
 .hud-year {
   font-family: var(--font-display);
-  font-size: 0.65rem;
-  letter-spacing: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
   color: var(--text-muted);
 }
 
@@ -247,14 +254,14 @@ body.card-3d-experience {
   left: 0;
   transform-origin: left center;
   border-radius: 20px 0 0 20px;
-  border-right: 1px solid rgba(250, 224, 132, 0.35);
+  border-right: 1px solid rgba(0, 0, 0, 0.6);
 }
 
 .flap-right {
   right: 0;
   transform-origin: right center;
   border-radius: 0 20px 20px 0;
-  border-left: 1px solid rgba(250, 224, 132, 0.35);
+  border-left: 1px solid rgba(0, 0, 0, 0.6);
 }
 
 .flap-emboss-pattern {
@@ -282,8 +289,8 @@ body.card-3d-experience {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, transparent, var(--gold-light), transparent);
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.4), transparent);
 }
 
 .flap-left .flap-spine-line { left: 8px; }
@@ -299,6 +306,12 @@ body.card-3d-experience {
   text-align: center;
   z-index: 30;
   cursor: pointer;
+  background: rgba(14, 16, 26, 0.82);
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: 20px;
+  padding: 1.5rem 1rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
@@ -1086,36 +1099,45 @@ body.card-3d-experience {
 @media (max-width: 650px) {
   .hud-controls-bar {
     padding: 0.5rem 0.8rem;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   .hud-brand {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
-    align-items: baseline;
-    gap: 0.3rem;
+    align-items: center;
+    gap: 0.25rem;
+    white-space: nowrap;
   }
   .hud-monogram {
     font-size: 1.1rem;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+  }
+  .hud-dot {
+    font-size: 0.65rem;
   }
   .hud-year {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     letter-spacing: 1px;
   }
   .hud-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 0.35rem;
+    gap: 0.3rem;
   }
   .hud-btn {
-    padding: 0.4rem 0.65rem;
-    font-size: 0.72rem;
-    gap: 0.3rem;
+    padding: 0.38rem 0.6rem;
+    font-size: 0.7rem;
+    gap: 0.25rem;
   }
 
   .viewport-3d {
-    padding: 4.2rem 0.8rem 2.5rem;
+    padding: 5.8rem 0.9rem 3.5rem;
     min-height: auto;
+  }
+
+  .card-3d-wrapper.is-opened {
+    margin-top: 1.2rem;
   }
 
   /* Cover Card on Mobile */
