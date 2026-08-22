@@ -1,5 +1,5 @@
 /* ==========================================================================
-   THE ROYAL 3D WEDDING INVITATION • FULL 3D ENVELOPE OPENING ENGINE
+   THE ROYAL 3D WEDDING INVITATION • COMPLETE DESIGN SYSTEM
    Shaik Mannur Kaleem & Shaik Roshni
    ========================================================================== */
 
@@ -111,16 +111,16 @@ body.card-3d-experience {
 /* Floating ambient decor */
 .env-floating-decor {
   position: absolute;
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
   opacity: 0.6;
   pointer-events: none;
   animation: float-drift 6s infinite ease-in-out;
 }
 
 .decor-1 { top: 8%; left: 8%; animation-delay: 0s; }
-.decor-2 { top: 12%; right: 10%; animation-delay: 1.5s; font-size: 1.4rem; color: var(--gold-light); }
-.decor-3 { bottom: 12%; left: 10%; animation-delay: 2.5s; font-size: 1.6rem; }
-.decor-4 { bottom: 8%; right: 8%; animation-delay: 3.5s; font-size: 1.4rem; color: var(--gold-light); }
+.decor-2 { top: 12%; right: 10%; animation-delay: 1.5s; font-size: clamp(1.1rem, 3vw, 1.4rem); color: var(--gold-light); }
+.decor-3 { bottom: 12%; left: 10%; animation-delay: 2.5s; font-size: clamp(1.2rem, 3.5vw, 1.6rem); }
+.decor-4 { bottom: 8%; right: 8%; animation-delay: 3.5s; font-size: clamp(1.1rem, 3vw, 1.4rem); color: var(--gold-light); }
 
 @keyframes float-drift {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -207,7 +207,7 @@ body.card-3d-experience {
 }
 
 .letter-emblem {
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   color: var(--gold-light);
   margin-bottom: 2px;
 }
@@ -235,7 +235,7 @@ body.card-3d-experience {
 }
 
 .letter-divider {
-  width: 50px;
+  width: clamp(35px, 10vw, 50px);
   height: 1px;
   background: var(--gold-border);
   margin: 0.25rem 0;
@@ -542,14 +542,15 @@ body.card-3d-experience {
 @keyframes b4 { 0% { height: 9px; } 100% { height: 2px; } }
 
 /* ==========================================================================
-   2. 3D VIEWPORT & CARD STAGE
+   2. 3D VIEWPORT & CARD STAGE (FLUID SPACING ARCHITECTURE)
    ========================================================================== */
 .viewport-3d {
   position: relative;
   z-index: 2;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: calc(clamp(3.4rem, 4.5vw, 4.2rem) + env(safe-area-inset-top)) max(clamp(0.6rem, 2vw, 1.4rem), env(safe-area-inset-right)) calc(clamp(1.5rem, 3vw, 2.5rem) + env(safe-area-inset-bottom)) max(clamp(0.6rem, 2vw, 1.4rem), env(safe-area-inset-left));
+  /* Desktop Reduced Padding between HUD Menu and Content */
+  padding: calc(clamp(2.6rem, 3.8vw, 3.2rem) + env(safe-area-inset-top)) max(clamp(0.6rem, 2vw, 1.4rem), env(safe-area-inset-right)) calc(clamp(1.4rem, 2.8vw, 2.2rem) + env(safe-area-inset-bottom)) max(clamp(0.6rem, 2vw, 1.4rem), env(safe-area-inset-left));
   perspective: 2000px;
   perspective-origin: center center;
   display: flex;
@@ -585,7 +586,7 @@ body.card-3d-experience {
   }
 }
 
-/* When viewport is narrower (< 980px), prioritize vertical order */
+/* When viewport is narrower (< 980px), preserve user-approved 4.8rem mobile spacing */
 @media (max-width: 979px) {
   .viewport-3d {
     padding-top: calc(4.8rem + env(safe-area-inset-top));
