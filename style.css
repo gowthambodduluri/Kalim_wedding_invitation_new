@@ -1085,17 +1085,32 @@ body.card-3d-experience {
 
 @media (max-width: 650px) {
   .hud-controls-bar {
-    padding: 0.6rem 0.8rem;
+    padding: 0.5rem 0.8rem;
+    gap: 0.5rem;
   }
-  .hud-brand { display: none; }
+  .hud-brand {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.3rem;
+  }
+  .hud-monogram {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+  .hud-year {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
   .hud-actions {
-    width: 100%;
-    justify-content: space-between;
-    gap: 0.4rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
   }
   .hud-btn {
-    padding: 0.45rem 0.75rem;
-    font-size: 0.75rem;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.72rem;
+    gap: 0.3rem;
   }
 
   .viewport-3d {
