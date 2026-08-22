@@ -1070,28 +1070,116 @@ body.card-3d-experience {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (MOBILE & TABLET)
+   RESPONSIVE DESIGN (MOBILE & TABLET FINE-TUNING)
    ========================================================================== */
 @media (max-width: 1024px) {
   .card-3d-wrapper.is-opened .card-inner-booklet {
     grid-template-columns: 1fr;
-    max-width: 540px;
+    max-width: 580px;
     margin: 0 auto;
-    gap: 1.5rem;
+    gap: 1.4rem;
   }
   .leaf-center { order: -1; }
-  .cover-names { font-size: 2.4rem; }
-  .card-cover-container { height: 520px; }
+  .card-cover-container { height: 540px; }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+  .hud-controls-bar {
+    padding: 0.6rem 0.8rem;
+  }
+  .hud-brand { display: none; }
+  .hud-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+  .hud-btn {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .viewport-3d {
+    padding: 4.2rem 0.8rem 2.5rem;
+    min-height: auto;
+  }
+
+  /* Cover Card on Mobile */
+  .card-cover-container {
+    max-width: 100%;
+    height: 520px;
+  }
+
+  .wax-seal-3d-emblem {
+    width: 95px;
+    height: 95px;
+    margin-bottom: 0.8rem;
+  }
+  .seal-core-button {
+    width: 74px;
+    height: 74px;
+  }
+  .seal-monogram { font-size: 1.05rem; }
+  .seal-date { font-size: 0.6rem; }
+
+  .cover-typography .cover-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+  }
+  .cover-names {
+    font-size: 2.3rem;
+    margin: 0.1rem 0;
+  }
+  .cover-date-place {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    margin-bottom: 1.2rem;
+    white-space: nowrap;
+  }
+
+  .open-instruction-pill {
+    padding: 0.65rem 1.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .open-instruction-pill span {
+    font-size: 0.72rem;
+  }
+
+  /* Inner Booklet Leaves on Mobile */
+  .leaf-glass-pane {
+    padding: 1.5rem 1.1rem;
+    gap: 0.8rem;
+  }
+
+  .portrait-img {
+    height: 200px;
+  }
+
+  .grand-groom, .grand-bride {
+    font-size: 1.7rem;
+  }
+  .romantic-verse {
+    font-size: 1.05rem;
+  }
+
+  .countdown-display {
+    gap: 0.5rem;
+  }
+  .cd-item .val {
+    font-size: 1.35rem;
+  }
+
+  .v-actions-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
   .cover-names { font-size: 2rem; }
-  .grand-groom, .grand-bride { font-size: 1.7rem; }
-  .card-cover-container { height: 480px; }
-  .wax-seal-3d-emblem { width: 95px; height: 95px; }
-  .seal-core-button { width: 75px; height: 75px; }
-  .hud-controls-bar { padding: 0.6rem 1rem; }
-  .viewport-3d { padding-top: 4.5rem; }
+  .cover-date-place { font-size: 0.7rem; }
+  .open-instruction-pill { padding: 0.55rem 0.9rem; }
+  .open-instruction-pill span { font-size: 0.65rem; }
 }
 
 /* Modal & Lightbox */
