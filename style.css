@@ -1,9 +1,8 @@
 /* ==========================================================================
-   THE ROYAL 3D WEDDING INVITATION • UNIVERSAL DYNAMIC ENGINE
+   THE ROYAL 3D WEDDING INVITATION • PURE FLUID SCALING ENGINE
    Shaik Mannur Kaleem & Shaik Roshni
-   Palette: Royal Midnight Obsidian (#050609), Velvet Charcoal (#10121c),
-            Champagne Gold Foil (#fae084, #d4af37), Cashmere Pearl White (#ffffff, #fff9ee)
-   100% Green-Free • Fluid Clamp Typography • Gyroscope 3D Tilt • dvh & Safe Area Support
+   100% Resolution Agnostic • Continuous Pixel-Adaptive Clamping • Zero Fixed Device Locks
+   Palette: Royal Midnight Obsidian, Velvet Slate, Champagne Gold Foil, Pearl White
    ========================================================================== */
 
 :root {
@@ -37,7 +36,7 @@
   --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Reset */
+/* Base Reset */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -47,7 +46,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  font-size: clamp(14px, 1vw + 10px, 16px);
   background-color: var(--bg-deep);
   height: 100%;
 }
@@ -79,8 +78,8 @@ body.card-3d-experience {
 
 .interactive-glow {
   position: fixed;
-  width: 400px;
-  height: 400px;
+  width: clamp(250px, 35vw, 450px);
+  height: clamp(250px, 35vw, 450px);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(250, 224, 132, 0.06) 0%, transparent 70%);
   pointer-events: none;
@@ -90,7 +89,7 @@ body.card-3d-experience {
 }
 
 /* ==========================================================================
-   FLOATING HUD TOP BAR (SAFE AREA COMPLIANT)
+   1. FLUID TOP HUD BAR (ADAPTS CONTINUOUSLY TO ANY PX WIDTH)
    ========================================================================== */
 .hud-controls-bar {
   position: fixed;
@@ -102,10 +101,12 @@ body.card-3d-experience {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--gold-border-subtle);
-  padding: max(0.55rem, env(safe-area-inset-top)) max(0.8rem, env(safe-area-inset-right)) 0.55rem max(0.8rem, env(safe-area-inset-left));
+  padding: max(0.45rem, env(safe-area-inset-top)) max(clamp(0.4rem, 2vw, 1.5rem), env(safe-area-inset-right)) 0.45rem max(clamp(0.4rem, 2vw, 1.5rem), env(safe-area-inset-left));
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: clamp(0.2rem, 1.5vw, 1rem);
+  width: 100%;
   max-width: 1360px;
   margin: 0 auto;
 }
@@ -113,51 +114,54 @@ body.card-3d-experience {
 .hud-brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: clamp(0.15rem, 0.8vw, 0.35rem);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .hud-monogram {
   font-family: var(--font-serif);
-  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: 0.5px;
   color: var(--gold-light);
   line-height: 1;
 }
 
 .hud-dot {
   color: var(--gold-primary);
-  font-size: 0.75rem;
+  font-size: clamp(0.55rem, 1.5vw, 0.75rem);
 }
 
 .hud-year {
   font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 1.5px;
+  font-size: clamp(0.6rem, 1.5vw, 0.7rem);
+  letter-spacing: 1px;
   color: var(--text-muted);
 }
 
 .hud-actions {
   display: flex;
   align-items: center;
-  gap: clamp(0.25rem, 1.5vw, 0.6rem);
+  justify-content: flex-end;
+  gap: clamp(0.2rem, 1vw, 0.6rem);
+  flex-shrink: 0;
 }
 
 .hud-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  padding: 0.45rem clamp(0.55rem, 1.5vw, 1rem);
+  gap: clamp(0.2rem, 0.6vw, 0.4rem);
+  padding: clamp(0.32rem, 0.8vw, 0.5rem) clamp(0.45rem, 1.4vw, 1rem);
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--gold-border);
   color: var(--pearl-white);
-  font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+  font-size: clamp(0.68rem, 1.6vw, 0.8rem);
   font-weight: 600;
   cursor: pointer;
-  min-height: 34px;
+  min-height: 32px;
   transition: var(--transition-fast);
   white-space: nowrap;
 }
@@ -206,14 +210,14 @@ body.card-3d-experience {
 @keyframes b4 { 0% { height: 9px; } 100% { height: 2px; } }
 
 /* ==========================================================================
-   3D VIEWPORT & CARD STAGE
+   2. 3D VIEWPORT & CARD STAGE
    ========================================================================== */
 .viewport-3d {
   position: relative;
   z-index: 2;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: calc(4.5rem + env(safe-area-inset-top)) max(0.8rem, env(safe-area-inset-right)) calc(2rem + env(safe-area-inset-bottom)) max(0.8rem, env(safe-area-inset-left));
+  padding: calc(clamp(4.2rem, 7vw, 5.5rem) + env(safe-area-inset-top)) max(clamp(0.6rem, 2.5vw, 1.5rem), env(safe-area-inset-right)) calc(clamp(1.8rem, 4vw, 3rem) + env(safe-area-inset-bottom)) max(clamp(0.6rem, 2.5vw, 1.5rem), env(safe-area-inset-left));
   perspective: 2000px;
   perspective-origin: center center;
   display: flex;
@@ -231,20 +235,19 @@ body.card-3d-experience {
 }
 
 /* ==========================================================================
-   1. 3D CLOSED FRONT COVER & FLAPS
+   3. 3D CLOSED FRONT COVER & FLAPS (PIXEL FLUID)
    ========================================================================== */
 .card-cover-container {
   position: relative;
-  width: 100%;
-  max-width: 620px;
-  height: clamp(480px, 70dvh, 560px);
+  width: min(94vw, 620px);
+  height: clamp(450px, 66dvh, 560px);
   margin: 0 auto;
   transform-style: preserve-3d;
   transition: opacity 0.8s ease, visibility 0.8s ease;
   z-index: 20;
 }
 
-/* Left Flap */
+/* Flaps */
 .cover-flap {
   position: absolute;
   top: 0;
@@ -282,8 +285,8 @@ body.card-3d-experience {
 
 .flap-corner-filigree {
   position: absolute;
-  width: 28px;
-  height: 28px;
+  width: clamp(20px, 4vw, 28px);
+  height: clamp(20px, 4vw, 28px);
   border-color: var(--gold-light);
   opacity: 0.5;
 }
@@ -310,25 +313,25 @@ body.card-3d-experience {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) translateZ(40px);
-  width: 90%;
+  width: min(92%, 540px);
   text-align: center;
   z-index: 30;
   cursor: pointer;
-  background: rgba(14, 16, 26, 0.82);
+  background: rgba(14, 16, 26, 0.85);
   border: 1px solid var(--gold-border-subtle);
   border-radius: 20px;
-  padding: clamp(1rem, 3vw, 1.5rem) 1rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: clamp(0.9rem, 3vw, 1.5rem) clamp(0.6rem, 2vw, 1.2rem);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .wax-seal-3d-emblem {
   position: relative;
-  width: clamp(84px, 18vw, 110px);
-  height: clamp(84px, 18vw, 110px);
-  margin: 0 auto clamp(0.6rem, 2vw, 1.2rem);
+  width: clamp(78px, 18vw, 110px);
+  height: clamp(78px, 18vw, 110px);
+  margin: 0 auto clamp(0.5rem, 1.8vw, 1.2rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -336,7 +339,7 @@ body.card-3d-experience {
 
 .seal-glow-ring {
   position: absolute;
-  inset: -10px;
+  inset: -8px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(250, 224, 132, 0.4) 0%, transparent 70%);
   animation: pulse-glow 3s infinite ease-in-out;
@@ -349,7 +352,7 @@ body.card-3d-experience {
 
 .seal-dashed-orbit {
   position: absolute;
-  inset: -6px;
+  inset: -5px;
   border-radius: 50%;
   border: 1px dashed var(--gold-light);
   animation: rotate-orbit 20s linear infinite;
@@ -361,8 +364,8 @@ body.card-3d-experience {
 }
 
 .seal-core-button {
-  width: clamp(68px, 15vw, 84px);
-  height: clamp(68px, 15vw, 84px);
+  width: clamp(64px, 15vw, 84px);
+  height: clamp(64px, 15vw, 84px);
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #fff2b8 0%, #d4af37 45%, #7a5409 100%);
   display: flex;
@@ -379,14 +382,14 @@ body.card-3d-experience {
 
 .seal-monogram {
   font-family: var(--font-serif);
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: clamp(0.95rem, 2.5vw, 1.2rem);
   font-weight: 800;
   color: #171104;
   letter-spacing: 1px;
 }
 
 .seal-date {
-  font-size: 0.6rem;
+  font-size: clamp(0.55rem, 1.2vw, 0.65rem);
   font-weight: 800;
   color: #171104;
   letter-spacing: 1px;
@@ -394,8 +397,8 @@ body.card-3d-experience {
 
 .cover-typography .cover-kicker {
   font-family: var(--font-display);
-  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
-  letter-spacing: clamp(2px, 1vw, 4px);
+  font-size: clamp(0.62rem, 1.5vw, 0.75rem);
+  letter-spacing: clamp(2px, 0.8vw, 4px);
   color: var(--gold-light);
   font-weight: 700;
   display: block;
@@ -403,7 +406,7 @@ body.card-3d-experience {
 
 .cover-names {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-size: clamp(1.85rem, 5.5vw, 3rem);
   font-weight: 700;
   color: #fff;
   line-height: 1.15;
@@ -417,7 +420,7 @@ body.card-3d-experience {
 }
 
 .cover-date-place {
-  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  font-size: clamp(0.68rem, 1.8vw, 0.85rem);
   letter-spacing: 1px;
   color: var(--text-muted);
   margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
@@ -427,12 +430,12 @@ body.card-3d-experience {
 .open-instruction-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem clamp(1rem, 3vw, 1.6rem);
+  gap: 0.45rem;
+  padding: clamp(0.55rem, 1.5vw, 0.75rem) clamp(0.85rem, 2.5vw, 1.6rem);
   border-radius: 40px;
   background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%);
   color: #06070a;
-  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  font-size: clamp(0.68rem, 1.8vw, 0.85rem);
   font-weight: 800;
   letter-spacing: 0.5px;
   box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
@@ -472,7 +475,7 @@ body.card-3d-experience {
 }
 
 /* ==========================================================================
-   2. 3D INNER INVITATION BOOKLET (3 BALANCED LEAVES)
+   4. 3D INNER INVITATION BOOKLET (CONTINUOUS DYNAMIC GRID)
    ========================================================================== */
 .card-inner-booklet {
   display: none;
@@ -483,12 +486,31 @@ body.card-3d-experience {
 
 .card-3d-wrapper.is-opened .card-inner-booklet {
   display: grid;
-  grid-template-columns: 1fr 1.25fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   align-items: stretch;
-  gap: clamp(0.9rem, 2vw, 1.2rem);
+  gap: clamp(0.85rem, 2vw, 1.3rem);
   opacity: 1;
   transform: translateY(0) scale(1);
   animation: inner-unfold 0.8s 0.4s var(--ease-3d-open) forwards;
+  width: 100%;
+}
+
+/* When viewport is wide enough (≥ 980px), lock into perfect 3-column tri-fold */
+@media (min-width: 980px) {
+  .card-3d-wrapper.is-opened .card-inner-booklet {
+    grid-template-columns: 1fr 1.25fr 1fr;
+  }
+}
+
+/* When viewport is narrower (< 980px), prioritize center main invitation on top */
+@media (max-width: 979px) {
+  .card-3d-wrapper.is-opened .card-inner-booklet {
+    max-width: 580px;
+    margin: 0.35rem auto 0;
+  }
+  .leaf-center {
+    order: -1;
+  }
 }
 
 @keyframes inner-unfold {
@@ -500,13 +522,14 @@ body.card-3d-experience {
   position: relative;
   transform-style: preserve-3d;
   display: flex;
+  width: 100%;
 }
 
 .leaf-glass-pane {
   background: var(--bg-glass);
   border: 1px solid var(--gold-border);
-  border-radius: 22px;
-  padding: clamp(1.2rem, 2.5vw, 1.8rem) clamp(1rem, 2vw, 1.4rem);
+  border-radius: clamp(16px, 3vw, 22px);
+  padding: clamp(1.1rem, 2.5vw, 1.8rem) clamp(0.8rem, 2vw, 1.4rem);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(250, 224, 132, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -514,26 +537,26 @@ body.card-3d-experience {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.65rem, 1.5vw, 0.9rem);
+  gap: clamp(0.6rem, 1.5vw, 0.9rem);
 }
 
 .leaf-corner {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: clamp(10px, 2vw, 14px);
+  height: clamp(10px, 2vw, 14px);
   border-color: var(--gold-light);
   opacity: 0.6;
 }
 
-.leaf-corner.top-left { top: 12px; left: 12px; border-top: 1px solid; border-left: 1px solid; }
-.leaf-corner.top-right { top: 12px; right: 12px; border-top: 1px solid; border-right: 1px solid; }
-.leaf-corner.bottom-left { bottom: 12px; left: 12px; border-bottom: 1px solid; border-left: 1px solid; }
-.leaf-corner.bottom-right { bottom: 12px; right: 12px; border-bottom: 1px solid; border-right: 1px solid; }
+.leaf-corner.top-left { top: 10px; left: 10px; border-top: 1px solid; border-left: 1px solid; }
+.leaf-corner.top-right { top: 10px; right: 10px; border-top: 1px solid; border-right: 1px solid; }
+.leaf-corner.bottom-left { bottom: 10px; left: 10px; border-bottom: 1px solid; border-left: 1px solid; }
+.leaf-corner.bottom-right { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }
 
 .leaf-tag {
   font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 2.5px;
+  font-size: clamp(0.62rem, 1.2vw, 0.7rem);
+  letter-spacing: 2px;
   color: var(--gold-light);
   font-weight: 700;
   text-align: center;
@@ -558,7 +581,7 @@ body.card-3d-experience {
 
 .portrait-img {
   width: 100%;
-  height: clamp(180px, 30vw, 220px);
+  height: clamp(180px, 28vw, 220px);
   object-fit: cover;
   object-position: center 25%;
   display: block;
@@ -573,14 +596,14 @@ body.card-3d-experience {
 
 .hd-zoom-pill {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   background: rgba(6, 7, 12, 0.85);
   border: 1px solid var(--gold-border);
   color: var(--gold-light);
-  font-size: 0.65rem;
+  font-size: clamp(0.58rem, 1.2vw, 0.65rem);
   font-weight: 700;
-  padding: 0.25rem 0.6rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 20px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -606,28 +629,28 @@ body.card-3d-experience {
 
 .p-names {
   font-family: var(--font-serif);
-  font-size: 1.15rem;
+  font-size: clamp(1.05rem, 2.5vw, 1.15rem);
   font-weight: 700;
   color: var(--gold-light);
   display: block;
 }
 
 .p-sub {
-  font-size: 0.65rem;
+  font-size: clamp(0.6rem, 1.2vw, 0.65rem);
   color: var(--text-muted);
 }
 
 .profiles-compact-stack {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: clamp(0.6rem, 1.5vw, 0.75rem);
 }
 
 .profile-mini-card {
   background: rgba(10, 12, 20, 0.85);
   border: 1px solid var(--gold-border-subtle);
   border-radius: 12px;
-  padding: 0.85rem;
+  padding: clamp(0.75rem, 2vw, 0.9rem);
 }
 
 .role-row {
@@ -638,7 +661,7 @@ body.card-3d-experience {
 }
 
 .role-badge {
-  font-size: 0.65rem;
+  font-size: clamp(0.6rem, 1.2vw, 0.65rem);
   letter-spacing: 1.5px;
   color: var(--gold-light);
   font-weight: 700;
@@ -654,7 +677,7 @@ body.card-3d-experience {
 }
 
 .edu-pill {
-  font-size: 0.7rem;
+  font-size: clamp(0.65rem, 1.2vw, 0.7rem);
   font-weight: 600;
   color: var(--gold-light);
   background: rgba(250, 224, 132, 0.1);
@@ -668,14 +691,14 @@ body.card-3d-experience {
 }
 
 .work-mini {
-  font-size: 0.75rem;
+  font-size: clamp(0.7rem, 1.4vw, 0.75rem);
   color: var(--text-muted);
   line-height: 1.3;
   margin-top: 0.2rem;
 }
 
 .lineage-mini {
-  font-size: 0.7rem;
+  font-size: clamp(0.65rem, 1.2vw, 0.7rem);
   color: var(--text-dim);
   margin-top: 0.3rem;
   border-top: 1px dashed rgba(255, 255, 255, 0.08);
@@ -688,33 +711,33 @@ body.card-3d-experience {
   border: 1px solid var(--gold-primary);
   box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 35px var(--gold-glow);
   text-align: center;
-  padding: clamp(1.4rem, 3vw, 2rem) clamp(1rem, 2.5vw, 1.6rem);
-  gap: 0.75rem;
+  padding: clamp(1.3rem, 3vw, 2rem) clamp(0.85rem, 2vw, 1.6rem);
+  gap: clamp(0.65rem, 1.5vw, 0.8rem);
 }
 
 .leaf-emblem {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   color: var(--gold-light);
-  margin-top: -0.4rem;
+  margin-top: -0.3rem;
 }
 
 .romantic-verse {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
   color: var(--pearl-warm);
   line-height: 1.5;
-  margin: 0.2rem 0;
+  margin: 0.15rem 0;
 }
 
 .grand-names-display {
-  margin: 0.3rem 0;
+  margin: 0.25rem 0;
 }
 
 .grand-names-display .title-role {
   font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 3px;
+  font-size: clamp(0.65rem, 1.3vw, 0.7rem);
+  letter-spacing: 2.5px;
   color: var(--gold-light);
   font-weight: 700;
   display: block;
@@ -723,7 +746,7 @@ body.card-3d-experience {
 
 .grand-groom, .grand-bride {
   font-family: var(--font-serif);
-  font-size: clamp(1.65rem, 4vw, 2.1rem);
+  font-size: clamp(1.55rem, 3.8vw, 2.1rem);
   font-weight: 700;
   color: #fff;
   line-height: 1.15;
@@ -733,7 +756,7 @@ body.card-3d-experience {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
   margin: 0.2rem auto;
   max-width: 200px;
 }
@@ -746,7 +769,7 @@ body.card-3d-experience {
 
 .sep-amp {
   font-family: var(--font-serif);
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
   font-style: italic;
   color: var(--gold-light);
 }
@@ -755,17 +778,17 @@ body.card-3d-experience {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--gold-border-subtle);
   border-radius: 12px;
-  padding: 0.75rem 0.9rem;
+  padding: clamp(0.65rem, 1.5vw, 0.8rem) clamp(0.75rem, 2vw, 1rem);
 }
 
 .hosts-name {
   font-family: var(--font-serif);
-  font-size: clamp(1.05rem, 2.5vw, 1.15rem);
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
   color: #fff;
 }
 
 .hosts-request {
-  font-size: 0.75rem;
+  font-size: clamp(0.7rem, 1.4vw, 0.75rem);
   color: var(--text-muted);
   margin-top: 0.1rem;
 }
@@ -775,11 +798,11 @@ body.card-3d-experience {
   background: rgba(8, 10, 18, 0.95);
   border: 1px solid var(--gold-border);
   border-radius: 14px;
-  padding: 0.9rem 0.75rem;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(0.6rem, 1.5vw, 0.8rem);
 }
 
 .countdown-caption {
-  font-size: 0.65rem;
+  font-size: clamp(0.6rem, 1.2vw, 0.65rem);
   letter-spacing: 1.5px;
   color: var(--gold-light);
   font-weight: 700;
@@ -790,7 +813,7 @@ body.card-3d-experience {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.4rem, 1.5vw, 0.7rem);
+  gap: clamp(0.35rem, 1.2vw, 0.7rem);
 }
 
 .cd-item {
@@ -801,26 +824,26 @@ body.card-3d-experience {
 
 .cd-item .val {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   font-weight: 700;
   color: #fff;
   line-height: 1;
 }
 
 .cd-item .lbl {
-  font-size: 0.55rem;
+  font-size: clamp(0.5rem, 1vw, 0.55rem);
   letter-spacing: 1px;
   color: var(--text-muted);
   margin-top: 0.2rem;
 }
 
 .cd-dot {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   color: var(--gold-primary);
 }
 
 .countdown-date-line {
-  font-size: clamp(0.7rem, 1.8vw, 0.75rem);
+  font-size: clamp(0.68rem, 1.4vw, 0.75rem);
   color: var(--gold-light);
   margin-top: 0.5rem;
   font-weight: 500;
@@ -828,16 +851,16 @@ body.card-3d-experience {
 
 /* LEAF 3: EVENTS, VENUE PASS & RSVP (RIGHT) */
 .leaf-right .leaf-glass-pane {
-  gap: 0.7rem;
+  gap: clamp(0.6rem, 1.4vw, 0.75rem);
 }
 
 .event-card-leaf {
   background: rgba(10, 12, 20, 0.85);
   border: 1px solid var(--gold-border-subtle);
   border-radius: 12px;
-  padding: 0.75rem 0.85rem;
+  padding: clamp(0.65rem, 1.5vw, 0.8rem) clamp(0.75rem, 1.8vw, 0.9rem);
   display: flex;
-  gap: 0.7rem;
+  gap: clamp(0.5rem, 1.5vw, 0.8rem);
   transition: var(--transition-fast);
 }
 
@@ -858,7 +881,7 @@ body.card-3d-experience {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
+  min-width: clamp(38px, 8vw, 44px);
 }
 
 .ev-date-ribbon.gold-ribbon {
@@ -868,14 +891,14 @@ body.card-3d-experience {
 
 .ribbon-d {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   font-weight: 700;
   color: #fff;
   line-height: 1;
 }
 
 .ribbon-m {
-  font-size: 0.55rem;
+  font-size: clamp(0.5rem, 1vw, 0.55rem);
   color: var(--gold-light);
   font-weight: 700;
 }
@@ -883,7 +906,7 @@ body.card-3d-experience {
 .ev-details { flex: 1; }
 
 .ev-badge {
-  font-size: 0.55rem;
+  font-size: clamp(0.52rem, 1vw, 0.55rem);
   letter-spacing: 1px;
   font-weight: 700;
   padding: 0.1rem 0.4rem;
@@ -897,13 +920,13 @@ body.card-3d-experience {
 
 .ev-title {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   color: #fff;
   line-height: 1.2;
 }
 
 .ev-time, .ev-venue {
-  font-size: 0.72rem;
+  font-size: clamp(0.68rem, 1.3vw, 0.72rem);
   color: var(--text-muted);
 }
 
@@ -918,7 +941,7 @@ body.card-3d-experience {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--gold-border-subtle);
   color: var(--gold-light);
-  font-size: 0.68rem;
+  font-size: clamp(0.64rem, 1.2vw, 0.68rem);
   font-weight: 600;
   cursor: pointer;
   margin-top: 0.3rem;
@@ -939,7 +962,7 @@ body.card-3d-experience {
   background: rgba(10, 12, 20, 0.85);
   border: 1px solid var(--gold-border-subtle);
   border-radius: 12px;
-  padding: 0.75rem;
+  padding: clamp(0.65rem, 1.5vw, 0.8rem);
 }
 
 .v-header {
@@ -949,34 +972,36 @@ body.card-3d-experience {
   margin-bottom: 0.4rem;
 }
 
-.v-icon { color: var(--gold-light); margin-top: 2px; font-size: 0.9rem; }
+.v-icon { color: var(--gold-light); margin-top: 2px; font-size: clamp(0.8rem, 1.6vw, 0.9rem); }
 
 .v-name {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   color: #fff;
   line-height: 1.2;
 }
 
 .v-address {
-  font-size: 0.7rem;
+  font-size: clamp(0.66rem, 1.2vw, 0.7rem);
   color: var(--text-muted);
 }
 
 .v-actions-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
 }
 
 .btn-v-action {
   flex: 1;
+  min-width: 120px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  padding: 0.35rem 0.5rem;
+  padding: clamp(0.32rem, 0.8vw, 0.45rem) 0.5rem;
   border-radius: 20px;
-  font-size: 0.7rem;
+  font-size: clamp(0.68rem, 1.4vw, 0.75rem);
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
@@ -1000,11 +1025,11 @@ body.card-3d-experience {
   background: rgba(10, 12, 20, 0.85);
   border: 1px solid var(--gold-border-subtle);
   border-radius: 12px;
-  padding: 0.75rem;
+  padding: clamp(0.65rem, 1.5vw, 0.8rem);
 }
 
 .rsvp-tag {
-  font-size: 0.6rem;
+  font-size: clamp(0.58rem, 1.2vw, 0.65rem);
   letter-spacing: 1.5px;
   color: var(--gold-light);
   font-weight: 700;
@@ -1028,13 +1053,13 @@ body.card-3d-experience {
 }
 
 .r-info strong {
-  font-size: 0.72rem;
+  font-size: clamp(0.68rem, 1.3vw, 0.72rem);
   color: #fff;
   display: block;
 }
 
 .r-info span {
-  font-size: 0.68rem;
+  font-size: clamp(0.64rem, 1.2vw, 0.68rem);
   color: var(--text-muted);
 }
 
@@ -1070,148 +1095,16 @@ body.card-3d-experience {
   margin-top: 0.5rem;
   padding-top: 0.4rem;
   border-top: 1px dashed rgba(255, 255, 255, 0.08);
-  font-size: 0.68rem;
+  font-size: clamp(0.64rem, 1.2vw, 0.68rem);
   color: var(--text-muted);
 }
 
 .comp-label {
-  font-size: 0.58rem;
+  font-size: clamp(0.55rem, 1vw, 0.58rem);
   letter-spacing: 1px;
   color: var(--gold-light);
   font-weight: 700;
   display: block;
-}
-
-/* ==========================================================================
-   RESPONSIVE DESIGN (UNIVERSAL MOBILE COMPATIBILITY: 280px - 1024px)
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .card-3d-wrapper.is-opened .card-inner-booklet {
-    grid-template-columns: 1fr;
-    max-width: 580px;
-    margin: 0 auto;
-    gap: 1.4rem;
-  }
-  .leaf-center { order: -1; }
-  .card-cover-container { height: clamp(460px, 68dvh, 540px); }
-}
-
-@media (max-width: 650px) {
-  .hud-controls-bar {
-    padding: max(0.45rem, env(safe-area-inset-top)) max(0.5rem, env(safe-area-inset-right)) 0.45rem max(0.5rem, env(safe-area-inset-left));
-    gap: 0.25rem;
-  }
-  .hud-brand {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.2rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .hud-monogram {
-    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-    letter-spacing: 0.5px;
-    font-weight: 800;
-  }
-  .hud-dot {
-    font-size: 0.6rem;
-  }
-  .hud-year {
-    font-size: 0.62rem;
-    letter-spacing: 1px;
-  }
-  .hud-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.2rem;
-    flex-shrink: 0;
-  }
-  .hud-btn {
-    padding: 0.35rem 0.5rem;
-    font-size: clamp(0.68rem, 1.8vw, 0.72rem);
-    gap: 0.22rem;
-    min-height: 32px;
-  }
-
-  .viewport-3d {
-    padding: calc(4.4rem + env(safe-area-inset-top)) max(0.65rem, env(safe-area-inset-right)) calc(2rem + env(safe-area-inset-bottom)) max(0.65rem, env(safe-area-inset-left));
-    min-height: auto;
-  }
-
-  .card-3d-wrapper.is-opened {
-    margin-top: 0.35rem;
-  }
-
-  /* Cover Card on Normal iPhone (375px - 393px) */
-  .card-cover-container {
-    max-width: 100%;
-    height: clamp(450px, 66dvh, 500px);
-  }
-
-  .cover-center-badge {
-    width: 92%;
-    padding: 1.1rem 0.6rem;
-  }
-
-  .wax-seal-3d-emblem {
-    width: 86px;
-    height: 86px;
-    margin-bottom: 0.6rem;
-  }
-  .seal-core-button {
-    width: 68px;
-    height: 68px;
-  }
-
-  .cover-names {
-    font-size: clamp(1.9rem, 5.5vw, 2.3rem);
-  }
-  .cover-date-place {
-    font-size: clamp(0.7rem, 2vw, 0.76rem);
-    margin-bottom: 1rem;
-  }
-  .open-instruction-pill {
-    padding: 0.6rem 0.95rem;
-    font-size: clamp(0.68rem, 2vw, 0.73rem);
-  }
-
-  /* Inner Leaves on Normal iPhone */
-  .leaf-glass-pane {
-    padding: 1.3rem 0.9rem;
-    gap: 0.7rem;
-  }
-
-  .portrait-img {
-    height: 185px;
-  }
-
-  .grand-groom, .grand-bride {
-    font-size: clamp(1.55rem, 4vw, 1.7rem);
-  }
-
-  .countdown-display {
-    gap: 0.4rem;
-  }
-  .cd-item .val {
-    font-size: 1.25rem;
-  }
-
-  .v-actions-row {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 370px) {
-  .hud-year { display: none; }
-  .hud-dot { display: none; }
-  .hud-sound-status { display: none; }
-  .hud-btn { padding: 0.32rem 0.42rem; }
-  .cover-names { font-size: 1.8rem; }
-  .cover-date-place { font-size: 0.66rem; }
-  .open-instruction-pill { padding: 0.5rem 0.75rem; }
-  .leaf-glass-pane { padding: 1.1rem 0.75rem; }
 }
 
 /* Modal & Lightbox */
@@ -1300,12 +1193,12 @@ body.card-3d-experience {
 
 .lightbox-caption h3 {
   font-family: var(--font-serif);
-  font-size: 1.3rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.3rem);
   color: var(--gold-light);
 }
 
 .lightbox-caption p {
-  font-size: 0.75rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.75rem);
   color: var(--text-muted);
 }
 
@@ -1330,7 +1223,7 @@ body.card-3d-experience {
   border: 1px solid var(--gold-primary);
   border-radius: 40px;
   padding: 0.65rem 1.4rem;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--gold-glow);
   display: flex;
   align-items: center;
