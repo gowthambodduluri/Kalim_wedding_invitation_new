@@ -204,7 +204,7 @@ body.card-3d-experience {
 .env-corner-filigree.bottom-left { bottom: 8px; left: 8px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
 .env-corner-filigree.bottom-right { bottom: 8px; right: 8px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
 
-/* 2. Inner Letter Card (Tucked inside, slides up) */
+/* 2. Inner Letter Card (Hidden inside until flap opens, then smoothly slides up) */
 .envelope-letter-card {
   position: absolute;
   left: 5%;
@@ -216,12 +216,15 @@ body.card-3d-experience {
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px var(--gold-glow);
   z-index: 2;
+  opacity: 0;
   transform: translateY(0);
-  transition: transform 1.2s 0.8s cubic-bezier(0.25, 0.9, 0.3, 1), box-shadow 1.2s 0.8s ease;
+  pointer-events: none;
+  transition: transform 1.2s 0.75s cubic-bezier(0.25, 0.9, 0.3, 1), opacity 0.35s 0.7s ease, box-shadow 1.2s 0.75s ease;
   overflow: hidden;
 }
 
 .envelope-stage-container.opened .envelope-letter-card {
+  opacity: 1;
   transform: translateY(-84%);
   box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.95), 0 0 35px var(--gold-glow);
 }
@@ -324,7 +327,7 @@ body.card-3d-experience {
   left: 0;
   bottom: 0;
   top: 0;
-  width: 50%;
+  width: 52%;
   background: linear-gradient(135deg, #181d32 0%, #0d101c 100%);
   clip-path: polygon(0 0, 0 100%, 100% 100%);
   border-left: 1.5px solid var(--gold-border);
@@ -337,7 +340,7 @@ body.card-3d-experience {
   right: 0;
   bottom: 0;
   top: 0;
-  width: 50%;
+  width: 52%;
   background: linear-gradient(225deg, #181d32 0%, #0d101c 100%);
   clip-path: polygon(100% 0, 0 100%, 100% 100%);
   border-right: 1.5px solid var(--gold-border);
@@ -349,10 +352,10 @@ body.card-3d-experience {
   position: absolute;
   inset-x: 0;
   bottom: 0;
-  height: 60%;
-  background: linear-gradient(180deg, rgba(28, 35, 58, 0.96) 0%, rgba(10, 13, 22, 0.99) 100%);
-  clip-path: polygon(0 100%, 50% 10%, 100% 100%);
-  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5);
+  height: 62%;
+  background: linear-gradient(180deg, rgba(28, 35, 58, 0.98) 0%, rgba(10, 13, 22, 1) 100%);
+  clip-path: polygon(0 100%, 50% 8%, 100% 100%);
+  box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.6);
   border-radius: 0 0 14px 14px;
 }
 
