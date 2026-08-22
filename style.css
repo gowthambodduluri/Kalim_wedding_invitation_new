@@ -217,7 +217,7 @@ body.card-3d-experience {
   z-index: 2;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: calc(clamp(4.2rem, 7vw, 5.5rem) + env(safe-area-inset-top)) max(clamp(0.6rem, 2.5vw, 1.5rem), env(safe-area-inset-right)) calc(clamp(1.8rem, 4vw, 3rem) + env(safe-area-inset-bottom)) max(clamp(0.6rem, 2.5vw, 1.5rem), env(safe-area-inset-left));
+  padding: calc(clamp(3.4rem, 4.5vw, 4.2rem) + env(safe-area-inset-top)) max(clamp(0.6rem, 2vw, 1.4rem), env(safe-area-inset-right)) calc(clamp(1.5rem, 3vw, 2.5rem) + env(safe-area-inset-bottom)) max(clamp(0.6rem, 2vw, 1.4rem), env(safe-area-inset-left));
   perspective: 2000px;
   perspective-origin: center center;
   display: flex;
