@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initEnvelopeOpeningCeremony();
+  initEnvelope3DTilt();
   initCountdown();
   initAmbientCanvas();
   initSoundAtmosphere();
@@ -27,6 +28,11 @@ function initEnvelopeOpeningCeremony() {
     if (isEnvelopeOpened || !overlay) return;
     isEnvelopeOpened = true;
 
+    // Haptic feedback if supported
+    if (navigator.vibrate) {
+      try { navigator.vibrate([25, 40, 25]); } catch (e) {}
+    }
+
     // 1. Play Royal Harp Chord progression
     playRoyalChimeSequence();
 
@@ -39,10 +45,10 @@ function initEnvelopeOpeningCeremony() {
     }, 600);
 
     // 4. Smoothly unveil envelope overlay with 4-stage physics:
-    // - Seal dissolves (0ms)
-    // - Flap rotates up (240ms)
-    // - Letter slides out (800ms)
-    // - Zoom & fade into card (1500ms - 2400ms)
+    // - Seal breaks & aura flares (0ms)
+    // - Flap rotates open in 3D (240ms)
+    // - Letter card slides up out of pocket (800ms)
+    // - Camera zooms into letter & dissolves (1400ms - 2400ms)
     overlay.classList.add('opened');
 
     showToast('✨ Welcome to Kaleem & Roshni’s Wedding Invitation');
@@ -63,6 +69,28 @@ function initEnvelopeOpeningCeremony() {
 
   if (reopenBtn) {
     reopenBtn.addEventListener('click', reopenEnvelope);
+  }
+}
+
+/* 3D Cursor / Device Tilt on Envelope */
+function initEnvelope3DTilt() {
+  const assembly = document.querySelector('.envelope-3d-assembly');
+  if (!assembly) return;
+
+  document.addEventListener('mousemove', (e) => {
+    if (isEnvelopeOpened) return;
+    const x = (e.clientX / window.innerWidth - 0.5) * 16;
+    const y = (e.clientY / window.innerHeight - 0.5) * -16;
+    assembly.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+  });
+
+  if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function') {
+    window.addEventListener('deviceorientation', (e) => {
+      if (isEnvelopeOpened || !e.gamma || !e.beta) return;
+      const gamma = Math.max(-20, Math.min(20, e.gamma)) * 0.4;
+      const beta = Math.max(-20, Math.min(20, e.beta - 45)) * -0.4;
+      assembly.style.transform = `rotateX(${beta}deg) rotateY(${gamma}deg)`;
+    });
   }
 }
 
